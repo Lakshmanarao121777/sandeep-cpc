@@ -1,0 +1,99 @@
+resource_types:
+  - name: s3-resource-simple
+    type: docker-image
+    source:
+      repository: hub.comcast.net/xia/s3-resource-simple
+
+resources:
+  - name: concourse-repo
+    type: git
+    icon: git
+    check_every: 500h
+    source:
+      branch: main
+      uri: git@github.com:comcast-common-payment/concourse.git
+      username: ((github.username)))
+      private_key: ((github.sshPrivateKey))
+
+  - name: global-web-resources
+    type: git
+    icon: git
+    check_every: 500h
+    webhook_token: ((global-web-resources.developmentBranchWebhookToken))
+    source:
+      branch: development
+      uri: git@github.com:comcast-common-payment/global-web-resources.git
+      username: ((github.username)))
+      private_key: ((github.sshPrivateKey))
+
+  - name: s3-commonpayment-dev
+    type: s3-resource-simple
+    source:
+      access_key_id: ((aws/nonprod.access_key_id))
+      secret_access_key: ((aws/nonprod.secret_access_key))
+      bucket: common-payment-dev-us-east-2
+      region_name: us-east-2
+      options:
+        - "--exclude 'global-web-resources/.git*'"
+        - "--exclude 'global-web-resources/README*'"
+
+  - name: s3-commonpayment-int
+    type: s3-resource-simple
+    source:
+      access_key_id: ((aws/nonprod.access_key_id))
+      secret_access_key: ((aws/nonprod.secret_access_key))
+      bucket: common-payment-int-us-east-2
+      region_name: us-east-2
+      options:
+        - "--exclude 'global-web-resources/.git*'"
+        - "--exclude 'global-web-resources/README*'"
+
+  - name: s3-commonpayment-preprod
+    type: s3-resource-simple
+    source:
+      access_key_id: ((aws/prod.access_key_id))
+      secret_access_key: ((aws/prod.secret_access_key))
+      bucket: common-payment-preprod-us-east-2
+      region_name: us-east-2
+      options:
+        - "--exclude 'global-web-resources/.git*'"
+        - "--exclude 'global-web-resources/README*'"
+
+jobs:
+  - name: deploy-global-web-resources-development
+    serial: true
+    plan:
+      - get: concourse-repo
+      - get: global-web-resources
+        trigger: true
+      - put: s3-commonpayment-dev
+      - task: clear-cache-development
+        file: concourse-repo/tasks/akamai_purge_cache.yml
+        params:
+          cp_code: ((akamai.cp_code_dev))
+
+  - name: deploy-global-web-resources-integration
+    serial: true
+    plan:
+      - get: concourse-repo
+      - get: global-web-resources
+      - put: s3-commonpayment-int
+      - task: clear-cache-integration
+        file: concourse-repo/tasks/akamai_purge_cache.yml
+        params:
+          cp_code: ((akamai.cp_code_int))
+
+  - name: deploy-global-web-resources-pre-production
+    serial: true
+    plan:
+      - get: concourse-repo
+      - get: global-web-resources
+      - put: s3-commonpayment-preprod
+      - task: clear-cache-preprod
+        file: concourse-repo/tasks/akamai_purge_cache.yml
+        params:
+          cp_code: ((akamai.cp_code_preprod))
+
+groups:
+  - name: build-test-deploy
+    jobs: [deploy-global-web-resources-development, deploy-global-web-resources-integration, deploy-global-web-resources-pre-production]

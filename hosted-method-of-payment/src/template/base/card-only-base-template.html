@@ -1,0 +1,84 @@
+<template id="CardOnlyBaseTemplate">    
+  <div id="jump-card-only-container">
+    <link name="jump-css-url" rel="stylesheet">	
+    <div name="jump-error-message-cc-block" class="row"></div>
+    <form name="jump-cc-template-container">
+        <div class="row">
+          <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <!-- <div class="row gy-5">
+              <div class="col-12">
+                <strong>CREDIT OR DEBIT CARD</strong>
+              </div>
+            </div> -->
+            <div name="jump-error-message-cc-top" class="row"></div>
+            <div class="row">
+              <div class="py-2 col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <label id="jump-first-name-label" name="jump-first-name-label" for="jump-first-name" class="form-label">First name</label>
+                <input name="jump-first-name" type="text" class="form-control" aria-label="First name" autocomplete="jump-first-name">
+              </div>
+              <div class="py-2 col-xxl-6 col-xl-6 col-lg-6  col-md-6 col-sm-12">
+                <label id="jump-last-name-label" name="jump-last-name-label" for="jump-last-name" class="form-label">Last name</label>
+                <input name="jump-last-name" type="text" class="form-control" aria-label="Last name" autocomplete="jump-last-name">
+              </div>
+            </div>
+            <div name="jump-error-message-cc-center" class="row"></div>
+            <div class="row">              
+                <div class="py-2 col-12 position-relative">
+                  <label id="jump-credit-card-label" for="jump-credit-card" class="form-label">Card number</label>
+                  <input name="jump-credit-card" id="jump-credit-card" type="text" class="form-control d-block box-size" aria-label="Credit card" autocomplete="jump-credit-card">
+                  <span name="jump-credit-card-img" class="form-label position-absolute image-size"></span>
+                </div>
+              </div>
+              <div class="row">                
+                <div class="py-2 col-6 col-sm-4">
+                <label id="jump-expiry-mm-label" for="jump-expiry-mm" class="form-label">Expiration</label>
+                <select name="jump-expiry-mm" id="jump-expiry-mm" class="form-select">
+                <option value="" disabled selected>Month</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                </select>
+                </div>
+                <div class="py-2 col-6 col-sm-4">
+                <label id="jump-expiry-yy-label" for="jump-expiry-yy" class="form-label">&nbsp;</label>
+                <select name="jump-expiry-yy" id="jump-expiry-yy" class="form-select">
+                <option value="" disabled selected>YYYY</option>
+                </select>
+                </div>                
+                <div class="py-2 col-12 col-sm-4">
+                <label id="jump-cvv-label" for="jump-cvv" class="form-label">Security code</label>
+                <span name="jump-modal-trigger">
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#jumpModalDialog">
+                    <img class="info-icon-img" name="jump-cvv-icon" data-bs-toggle="modal" data-bs-target="#jumpModalDialog" alt="cvv info">
+                  </a>
+                </span>
+                <input name="jump-cvv" type="password" placeholder="CVV" class="form-control" aria-label="Security code">
+              </div>
+              </div>
+            <jump-care-web-component id="jump-cc-care" care-for="CC"></jump-care-web-component>           
+            <div class="row">
+              <div class="col-12 jump-billing-address">Billing address</div>
+            </div>
+            <jump-address-web-component id="jump-cc-address" address-for="CC"></jump-address-web-component>
+            <jump-auto-pay-web-component id="jump-auto-pay-cc" auto-pay-for="CC"></jump-auto-pay-web-component>          
+            <jump-terms-and-condition-web-component id="jump-tc-cc" tc-for="CC"></jump-terms-and-condition-web-component>          
+            <jump-userrole-list-web-component id="jump-userrole-list-cc" userrole-list-for="CC" ></jump-userrole-list-web-component>
+            <jump-default-payment-web-component id="jump-default-payment-cc" default-payment-for="CC"></jump-default-payment-web-component>
+
+            <div name="jump-error-message-cc-bottom" class="row"></div>
+            <jump-error-web-component id="jump-error-web-component-cc"></jump-error-web-component>               
+          </div>
+        </div>
+    </form>
+  </div>
+  </template>
+  

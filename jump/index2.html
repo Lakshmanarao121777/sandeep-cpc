@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JUMP Web Component</title>
+    <meta name="description" content="JUMP Web Component" />
+    <meta name="author" content="Common Payment Component Team" />
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/global-light.css" />
+    <script>
+      function clearFormData() {}
+      function onContinuePayment() {
+        var checkoutData = Object.assign({});
+        checkoutData.isSubmitPayment = true;
+        var message = {
+          channel: "jump-iframe",
+          action: "CPC_FORM_SUBMIT",
+          cpcPageType: document.querySelector("jump-web-component").cpcPageType,
+          channelData: checkoutData,
+        };
+        document
+          .querySelector("jump-web-component")
+          .shadowRoot.querySelector("iframe")
+          .contentWindow.postMessage(JSON.stringify(message), "*");
+      }
+      function postDataToHostApp(data) {
+        var message = {
+          channel: "quick-pay",
+          action: "EXPIRY_DATE_VALIDATION",
+          cpcPageType: document.querySelector("jump-web-component").cpcPageType,
+          messageData: data,
+        };
+        document
+          .querySelector("jump-web-component")
+          .shadowRoot.querySelector("iframe")
+          .contentWindow.postMessage(JSON.stringify(message), "*");
+      }
+
+      window.addEventListener("message", (message) => {
+        //MUST NEEDED: TO RUN WEB-COMPONENT PROPERY IN REACT CHANNEL APP
+        // if(message && message.data && message.data.source && message.data.source.indexOf('react-devtools')>=0 ) {
+        //     return;
+        //   }
+
+        if (
+          message &&
+          message.data &&
+          typeof message.data === "string" &&
+          message.data.indexOf('"action":') >= 0
+        ) {
+          let data = JSON.parse(message.data);
+          switch (data.action) {
+            case "CPC_FORM_SUBMIT_RESPONSE":
+              document.getElementById("showMessage").innerHTML = JSON.stringify(
+                data.paymentMessage
+              );
+              break;
+            case "CPC_CONFIG_SUBMIT":
+              console.log("CPC_CONFIG_SUBMIT - inside..", data);
+              //data.action = 'CPC_CONFIG_SUBMIT';
+              document
+                .querySelector("jump-web-component")
+                .shadowRoot.querySelector("iframe")
+                .contentWindow.postMessage(JSON.stringify(data), "*");
+              break;
+            case "CPC_CONFIG_READY":
+              console.log("jump component CPC_CONFIG_READY", data);
+              if (data && data.config) {
+                data.action = "CPC_CONFIG_SUBMIT";
+                window.postMessage(JSON.stringify(data), "*");
+              }
+              break;
+            default:
+              break;
+          }
+        }
+      });
+    </script>
+    <style>
+      .cc-pad-bottom-40 {
+        padding-bottom: 40px;
+      }
+      .cc-pad-top-20 {
+        padding-top: 20px;
+      }
+      .btn-text-align-rigth {
+        text-align: right;
+      }
+      .btn-margin-left-20 {
+        margin-left: 20px;
+      }
+      .jump-input-error {
+        border: 1px solid #db6f20 !important;
+      }
+      .float-right {
+        float: right;
+      }
+      .form-hr {
+        margin-top: 2px;
+      }
+      .caps-all-first {
+        text-transform: capitalize;
+      }
+      .jump-bs-close-icon {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+      .jump-bs-modal-title {
+        font-weight: 500;
+        font-size: 1rem;
+      }
+      .jump-bs-modal-head-first-line {
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+        color: grey;
+      }
+
+      /*
+********************MEDIA QUERIES************************
+*/
+
+      @media screen and (min-width: 100px) and (max-width: 575px) {
+        body {
+          background-color: yellow;
+        }
+      }
+
+      /* 'sm' applies to x-small devices (portrait phones, less than 576px) */
+      @media screen and (min-width: 576px) and (max-width: 768px) {
+        body {
+          background-color: #db6f20;
+        }
+      }
+
+      /* 'md' applies to small devices (landscape phones, less than 768px) */
+      @media screen and (min-width: 769px) and (max-width: 992px) {
+        body {
+          background-color: antiquewhite;
+        }
+      }
+
+      /* 'lg' applies to medium devices (tablets, less than 992px) */
+      @media screen and (min-width: 993px) and (max-width: 1200px) {
+        body {
+          background-color: aqua;
+        }
+      }
+
+      /* 'xl' applies to large devices (desktops, less than 1200px) */
+      @media screen and (min-width: 1201px) and (max-width: 1400px) {
+        body {
+          background-color: blueviolet;
+        }
+      }
+
+      /* 'xxl' applies to x-large devices (large desktops, less than 1400px) */
+      @media screen and (min-width: 1401px) {
+        body {
+          background-color: green;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container container-fliud">
+      <div class="row mb-3">          
+        <form name="jump-cc-template-container">
+          <div class="row mb-3">
+            <div class="col-sm-12">
+              <div class="row gy-5 cc-pad-bottom-20">
+                <div class="col-12">
+                  <strong>CREDIT OR DEBIT CARD</strong>
+                </div>
+              </div>
+
+              <div class="row cc-pad-bottom-40">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <label for="jump-first-name" class="form-label">First name</label>
+                  <input name="jump-first-name" type="text" class="form-control" aria-label="First name">
+                </div>
+                <div class="col-lg-6  col-md-6 col-sm-12">
+                  <label for="jump-last-name" class="form-label">Last name</label>
+                  <input name="jump-last-name" type="text" class="form-control" aria-label="Last name">
+                </div>
+              </div>
+
+              <div class="row gy-3 cc-pad-bottom-20">
+                <div class="row">
+                  <div class="col-11">
+                    <label for="jump-credit-card" class="form-label">Card number</label>
+                    <input name="jump-credit-card" type="text" class="form-control" aria-label="Credit card">
+                  </div>
+                  <div class="col-1 p-0">
+                    <label class="form-label"></label>
+                    <span name="jump-credit-card-img" class="form-label"></span>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                  <label for="jump-expiry-mm" class="form-label">Expiration</label>
+                  <!-- <input type="text" class="form-control" aria-label="First name">  -->
+                  <select name="jump-expiry-mm" class="form-select">
+                    <option value="">Month</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                  <label for="jump-expiry-yy" class="form-label">&nbsp;</label>
+                  <select name="jump-expiry-yy" class="form-select">
+                    <option value="">YYYY</option>
+                  </select>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <label for="jump-cvv" class="form-label">Security code</label>
+                  <span name="jump-modal-trigger">
+                    <svg data-bs-toggle="modal" data-bs-target="#jumpModalDialog" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                      <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                    </svg>
+                  </span>
+                  <input name="jump-cvv" type="password" class="form-control" aria-label="Security code">
+                </div>
+              </div>
+              <jump-address-web-component address-for="CC"></jump-address-web-component>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="row cc-pad-bottom-20">
+        <div class="col-12"><hr /></div>
+      </div>
+      <div class="row cc-pad-bottom-20">
+        <div class="col-12 btn-text-align-rigth">
+          <button type="button" class="btn btn-light rounded-pill">
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary rounded-pill btn-margin-left-20"
+            id="jump-continue-payment"
+            onclick="onContinuePayment();"
+          >
+            Review Payment
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer><div id="showMessage"></div></footer>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", (e) => {});
+      function setPaymentType(obj) {
+        console.log(
+          "set payment...",
+          document.querySelector("jump-web-component")
+        );
+        clearFormData();
+        document.querySelector("jump-web-component").cpcPageType = obj.value;
+      }
+    </script>
+    <script src="native-shim.js"></script>
+    <script src="jump-web-component-bundle.js"></script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+server:
+  port: 8888
+
+logging:
+  level:
+    org.springframework.cloud: 'DEBUG'
+    
+management:
+  endpoint:
+    env:
+      enabled: true
+    mappings:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  profiles:
+    active: composite
+  cloud:
+    config:
+      server:
+        composite:
+        -
+          type: git
+          uri: ${app.repo.github.uri}
+          username: ${app.repo.github.username}
+          password: ${app.repo.github.password}
+          searchPaths: "*"
+        -
+          type: git
+          uri: ${shared.repo.github.uri}
+          username: ${shared.repo.github.username}
+          password: ${shared.repo.github.password}
+          searchPaths: "*"
+        -
+          type: vault
+          host: ${vault.host}
+          port: ${vault.port}
+          scheme: https
+          backend: ${vault.org}
+          profileSeparator: /
+          defaultKey: shared-credentials
+        vault:
+          host: ${vault.host}
+          port: ${vault.port}
+          scheme: https
+          backend: ${vault.org}
+          profileSeparator: /
+          defaultKey: shared-credentials
+          authentication:
+            type: APP_ROLE
+            appRole:
+              roleId: ${vault.roleId}
+              secretId: ${vault.secretId}
+        health:
+          enabled: false
+  security:
+    basic:
+      enabled: true
+    user:
+      name: ${config.server.username}
+      password: ${config.server.password}

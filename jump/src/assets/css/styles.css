@@ -1,0 +1,8 @@
+iframe {
+    height: 400;
+    width: 500;
+    border: 0px;
+}
+.jump-iframe{
+    border: none;
+}

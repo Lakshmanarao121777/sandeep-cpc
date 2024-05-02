@@ -1,0 +1,37 @@
+<template id="WalletMgmtNoAutopayTemplate">
+    <div name="cardOrExistingContainer">
+        <div name="jump-error-message-cob-top" class="row"></div>  
+        <div name="cardListPlaceholder">
+       
+        </div>
+        <div name="newPaymentOptionPlaceholder">
+
+        </div>
+        <div name="cardListPlaceholderCard" id="cardListPlaceholderCard" class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div id="card-plus-circle">
+            <div class="card card-body d-none card-style-box" id="card-style-box" name="jump-card-container">      
+            <jump-cc-web-component id="jump-cc-web-component" class="show"></jump-cc-web-component>  
+            <div class="wallet-option-row">
+                <button class="btn btn-cancel-button" type="button" id="jump-cancel-option-cc">CANCEL</button>
+                <button class="btn btn-primary btn-save-button" type="button" id="jump-save-option-cc">SAVE PAYMENT METHOD</button>
+            </div>
+        </div>
+        </div>
+        <div class="col-12 d-none" id="jump-new-card-hr"><hr /></div>
+        </div>
+        <div name="cardListPlaceholderBank" id="cardListPlaceholderBank" class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div id="bank-plus-circle">
+            <div class="card card-body d-none bank-style-box" id="bank-style-box" name="jump-bank-container">      
+            <jump-ach-web-component id="jump-ach-web-component" class="show"></jump-ach-web-component>      
+            <div class="wallet-option-row">
+                <button class="btn btn-cancel-button" type="button" id="jump-cancel-option-ach">CANCEL</button>
+                <button class="btn btn-primary btn-save-button" type="button" id="jump-save-option-ach">SAVE PAYMENT METHOD</button>
+            </div>
+        </div>
+        </div>
+        </div>
+        <div name="jump-error-message-bottom" class="row"></div>
+        <jump-error-web-component id="jump-error-web-component-card-or-bank"></jump-error-web-component>   
+        <div name="jump-error-message-cob-bottom" class="row"></div>  
+      </div>   
+</template>

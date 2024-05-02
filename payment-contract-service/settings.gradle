@@ -1,0 +1,13 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        maven {
+            url "${artifactory_url}/plugins-release"
+        }
+        maven {
+            url "${artifactory_url}/libs-release"
+        }
+        gradlePluginPortal()
+    }
+}
+rootProject.name="payment-contract-service"

@@ -1,0 +1,21 @@
+<template id="CardOrExistingTemplate">
+<div name="cardOrExistingContainer">
+  <div name="jump-error-message-cob-top" class="row"></div>  
+  <div name="cardListPlaceholder">
+
+  </div>
+  <div name="newPaymentOptionPlaceholder">
+
+  </div>
+  <div id="jump-cc-template">
+    <div class="card card-body d-none" name="jump-card-container">      
+      <jump-cc-web-component id="jump-cc-web-component" class="show"></jump-cc-web-component>      
+      <jump-error-web-component id="jump-error-web-component-card-bank-or-existing"></jump-error-web-component>         
+    </div>
+    </div>
+  </div>  
+  <div name="jump-error-message-bottom" class="row"></div>
+  <jump-error-web-component id="jump-error-web-component-card-bank-or-existing"></jump-error-web-component>   
+  <div name="jump-error-message-cob-bottom" class="row"></div>  
+</div>
+</template>

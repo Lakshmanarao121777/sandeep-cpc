@@ -1,0 +1,282 @@
+failure_notification: &failure_notification
+  put: alert
+  params:
+    themeColor: "FF0000"
+    status: FAILURE
+    title: "branch build job failed. Refer CI/CD logs provided in link below for details."
+
+error_notification: &error_notification
+  put: alert
+  params:
+    themeColor: "FF0000"
+    status: ERROR
+    title: "Error occurred while executing pipeline, refer CI/CD logs provided in link below for details."
+
+resource_types:
+  - name: pull-request
+    type: docker-image
+    source:
+      repository: teliaoss/github-pr-resource
+
+  - name: teams-notification
+    type: registry-image
+    source:
+      repository: hub.comcast.net/pps-portal/teams-notification-resource
+      tag: latest
+
+  - name: checkmarx
+    type: docker-image
+    source:
+      repository: hub.comcast.net/devsecops/checkmarx-resource
+
+  - name: whitesource
+    type: docker-image
+    source:
+      repository: hub.comcast.net/devsecops/whitesource-resource
+
+  - name: s3-resource-simple
+    type: docker-image
+    source:
+      repository: hub.comcast.net/xia/s3-resource-simple
+
+resources:
+  - name: concourse-repo
+    type: git
+    icon: git
+    check_every: 500h
+    source:
+      branch: main
+      uri: git@github.com:comcast-common-payment/concourse.git
+      username: ((github.username)))
+      private_key: ((github.sshPrivateKey))
+
+  - name: git-branch
+    type: git
+    icon: git
+    check_every: 500h
+    webhook_token: ((hosted-method-of-payment.2_3_0BranchWebhookToken))
+    source:
+      branch: 2.3.0
+      uri: git@github.com:comcast-common-payment/hosted-method-of-payment.git
+      username: ((github.username)))
+      private_key: ((github.sshPrivateKey))
+
+  - name: git-pull-request
+    type: pull-request
+    icon: source-pull
+    check_every: 500h
+    webhook_token: ((hosted-method-of-payment.2_3_0PrWebhookToken))
+    source:
+      repository: comcast-common-payment/hosted-method-of-payment
+      base_branch: 2.3.0
+      access_token: ((github.accessToken))
+      v3_endpoint: https://api.github.com
+      v4_endpoint: https://api.github.com/graphql
+
+  - name: s3-deploy-development
+    type: s3-resource-simple
+    source:
+      access_key_id: ((aws/nonprod.access_key_id))
+      secret_access_key: ((aws/nonprod.secret_access_key))
+      bucket: common-payment-dev-us-east-2
+      region_name: us-east-2
+      path: 2.3.0/
+
+  - name: s3-deploy-integration
+    type: s3-resource-simple
+    source:
+      access_key_id: ((aws/nonprod.access_key_id))
+      secret_access_key: ((aws/nonprod.secret_access_key))
+      bucket: common-payment-int-us-east-2
+      region_name: us-east-2
+      path: 2.3.0/
+
+  - name: s3-deploy-pre-production
+    type: s3-resource-simple
+    source:
+      access_key_id: ((aws/prod.access_key_id))
+      secret_access_key: ((aws/prod.secret_access_key))
+      bucket: common-payment-preprod-us-east-2
+      region_name: us-east-2
+      path: 2.3.0/
+
+  - name: checkmarx
+    type: checkmarx
+    check_every: 168h
+    icon: file-search
+    source:
+      user: Active Directory\((service-account.username))
+      password: ((service-account.secret))
+
+  - name: whitesource
+    type: whitesource
+    icon: database-search
+    check_every: 168h
+    source:
+      apiKey: ((whitesource.apiKey))
+      userKey: ((whitesource.userToken))
+      checkPolicies: true
+      resolveAllDependencies: false
+      productName: Common-Payment
+      archiveExtractionDepth: 3
+      includes: "**/*.json **/*.js **/*.ts"
+      forceCheckAllDependencies: true
+      forceUpdate: true
+      forceUpdate.failBuildOnPolicyViolation: true
+      npm.resolveDependencies: true
+      npm.runPreStep: true
+      npm.resolveLockFile: true
+
+  - name: alert
+    type: teams-notification
+    icon: notification
+    check_every: 500h
+    source:
+      webhook_url: ((alerts.deploymentChannelWebhook))
+
+jobs:
+  - name: validate-pull-request
+    serial: true
+    plan:
+      - get: concourse-repo
+      - get: git-branch
+      - get: git-pull-request
+        trigger: true
+      - put: git-pull-request
+        params:
+          path: git-pull-request
+          status: pending
+      - task: get-commit-and-pr-ids
+        file: concourse-repo/tasks/get_commit_and_pr_ids.yml
+        input_mapping:
+          code: git-pull-request
+      - task: build-pull-request
+        file: concourse-repo/tasks/build_pr.yml
+        input_mapping:
+          appcode: git-pull-request
+        output_mapping:
+          appcode: build
+      - put: checkmarx
+        params:
+          project_name: CxServer\Comcast-NBCUniversal\Comcast\CXT\CXT-PB-Common-Payment\CXT-PB-Common-Payment-CMX-hosted-method-of-payment
+          dir: git-pull-request
+          fail_on: HIGH
+          full_scan: true
+      - put: whitesource
+        params:
+          dir: 
+          - git-pull-request
+          config:
+            projectName: WS-hosted-method-of-payment-2.3.0
+    on_failure:
+      put: git-pull-request
+      params:
+        path: git-pull-request
+        status: failure
+        comment: "Pull request build failed!"
+    on_error:
+      put: git-pull-request
+      params:
+        path: git-pull-request
+        status: Error
+        comment: "Error occured while executing pipeline! :("
+    on_success:
+      put: git-pull-request
+      params:
+        path: git-pull-request
+        status: success
+
+  - name: build-deploy-development
+    serial: true
+    plan:
+      - get: concourse-repo
+      - get: git-branch
+        trigger: true
+      - task: build
+        file: concourse-repo/tasks/build_branch.yml
+        vars:
+          environment: "dev"
+          output_folder: hosted-method-of-payment
+        on_failure:
+            <<: *failure_notification
+        on_error:
+            <<: *error_notification
+#! - Sonar scan is currently failing.  Task should be included once issues have been resolved.
+#      - task: sonar-scan
+#        file: concourse-repo/tasks/sonar_scan.yml
+#        on_failure:
+#            <<: *failure_notification
+#        on_error:
+#            <<: *error_notification
+      - put: s3-deploy-development
+        inputs:
+          - hosted-method-of-payment
+      - task: clear-cache-development
+        file: concourse-repo/tasks/akamai_purge_cache.yml
+        params:
+          cp_code: ((akamai.cp_code_dev))
+
+  - name: build-deploy-integration
+    serial: true
+    plan:
+      - get: concourse-repo
+      - get: git-branch
+      - task: build
+        file: concourse-repo/tasks/build_branch.yml
+        vars:
+          environment: "int"
+          output_folder: hosted-method-of-payment
+        on_failure:
+            <<: *failure_notification
+        on_error:
+            <<: *error_notification
+#! - Sonar scan is currently failing.  Task should be included once issues have been resolved.
+#      - task: sonar-scan
+#        file: concourse-repo/tasks/sonar_scan.yml
+#        on_failure:
+#            <<: *failure_notification
+#        on_error:
+#            <<: *error_notification
+      - put: s3-deploy-integration
+        inputs:
+          - hosted-method-of-payment
+      - task: clear-cache-integration
+        file: concourse-repo/tasks/akamai_purge_cache.yml
+        params:
+          cp_code: ((akamai.cp_code_int))
+
+  - name: build-deploy-pre-production
+    serial: true
+    plan:
+      - get: concourse-repo
+      - get: git-branch
+      - task: build
+        file: concourse-repo/tasks/build_branch.yml
+        vars:
+          environment: "preprod"
+          output_folder: hosted-method-of-payment
+        on_failure:
+          <<: *failure_notification
+        on_error:
+          <<: *error_notification
+#! - Sonar scan is currently failing.  Task should be included once issues have been resolved.
+#      - task: sonar-scan
+#        file: concourse-repo/tasks/sonar_scan.yml
+#        on_failure:
+#            <<: *failure_notification
+#        on_error:
+#            <<: *error_notification
+      - put: s3-deploy-pre-production
+        inputs:
+          - hosted-method-of-payment
+      - task: clear-cache-pre-production
+        file: concourse-repo/tasks/akamai_purge_cache.yml
+        params:
+          cp_code: ((akamai.cp_code_preprod))
+
+groups:
+  - name: pull-request
+    jobs:
+      - validate-pull-request
+  - name: build-test-deploy
+    jobs: [build-deploy-development, build-deploy-integration, build-deploy-pre-production]

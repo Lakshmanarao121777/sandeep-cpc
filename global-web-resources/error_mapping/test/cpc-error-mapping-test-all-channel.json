@@ -1,0 +1,179 @@
+{
+  "cpcErrorResponseMapping": [
+    {
+      "channel": ["ALL"],
+      "system": {
+        "default": "CPC-TEST-1001",
+        "card_block": "CPC-TEST-1002"
+      },
+      "form": {
+        "payment_type": {
+          "no_value": "CPC-TEST-2001"
+        },
+        "bank": {
+          "first_name": {
+            "invalid": "CPC-TEST-2002",
+            "no_value": "CPC-TEST-2003"
+          },
+          "last_name": {
+            "invalid": "CPC-TEST-2004",
+            "no_value": "CPC-TEST-2005"
+          },
+          "address_line_1": {
+            "invalid": "CPC-TEST-2006",
+            "no_value": "CPC-TEST-2007"
+          },
+          "address_line_2": {
+            "invalid": "CPC-TEST-2008"
+          },
+          "city": {
+            "invalid": "CPC-TEST-2009",
+            "no_value": "CPC-TEST-2010"
+          },
+          "state": {
+            "invalid": "CPC-TEST-2011",
+            "no_value": "CPC-TEST-2012"
+          },
+          "zip": {
+            "invalid": "CPC-TEST-2013",
+            "no_value": "CPC-TEST-2014"
+          },
+          "account_type": {
+            "no_value": "CPC-TEST-2015"
+          },
+          "bank_account_number": {
+            "alpha_characters": "CPC-TEST-2016",
+            "no_value": "CPC-TEST-2017",
+            "too_many_digits": "CPC-TEST-2018"
+          },
+          "routing_number": {
+            "alpha_characters": "CPC-TEST-2019",
+            "no_value": "CPC-TEST-2020",
+            "not_enough_digits": "CPC-TEST-2021",
+            "too_many_digits": "CPC-TEST-2022"
+          }
+        },
+        "card": {
+          "first_name": {
+            "invalid": "CPC-TEST-2023",
+            "no_value": "CPC-TEST-2024"
+          },
+          "last_name": {
+            "invalid": "CPC-TEST-2025",
+            "no_value": "CPC-TEST-2026"
+          },
+          "address_line_1": {
+            "invalid": "CPC-TEST-2027",
+            "no_value": "CPC-TEST-2028"
+          },
+          "address_line_2": {
+            "invalid": "CPC-TEST-2029"
+          },
+          "city": {
+            "invalid": "CPC-TEST-2030",
+            "no_value": "CPC-TEST-2031"
+          },
+          "state": {
+            "invalid": "CPC-TEST-2032",
+            "no_value": "CPC-TEST-2033"
+          },
+          "zip": {
+            "invalid": "CPC-TEST-2034",
+            "no_value": "CPC-TEST-2035"
+          },
+          "card_number": {
+            "alpha_characters": "CPC-TEST-2036",
+            "invalid": "CPC-TEST-2037",
+            "no_value": "CPC-TEST-2038",
+            "too_many_digits": "CPC-TEST-2039"
+          },
+          "expiration_month_year": {
+            "date_in_past": "CPC-TEST-2040",
+            "no_value": "CPC-TEST-2041"
+          },
+          "security_code": {
+            "alpha_characters": "CPC-TEST-2042",
+            "no_value": "CPC-TEST-2043",
+            "not_enough_digits": {
+              "american-express": "CPC-TEST-2044",
+              "discover": "CPC-TEST-2045",
+              "mastercard": "CPC-TEST-2046",
+              "visa": "CPC-TEST-2047"
+            },
+            "too_many_digits": {
+              "american-express": "CPC-TEST-2048",
+              "discover": "CPC-TEST-2049",
+              "mastercard": "CPC-TEST-2050",
+              "visa": "CPC-TEST-2051"
+            }
+          }
+        }
+      },
+      "service": {
+        "default": "CPC-TEST-3001",
+        "PAYMENT-1001": "CPC-TEST-3002"
+      },
+      "communication": {
+        "default": "CPC-TEST-4001"
+      }
+    }
+  ],
+  "cpc_response_messages": {
+    "CPC-TEST-1001": "System default test error message.",
+    "CPC-TEST-1002": "System card block test error message.",
+    "CPC-TEST-2001": "Form payment type no value test error message.",
+    "CPC-TEST-2002": "Form bank first name invalid test error message.",
+    "CPC-TEST-2003": "Form bank first name no value test error message.",
+    "CPC-TEST-2004": "Form bank last name invalid test error message.",
+    "CPC-TEST-2005": "Form bank last name no value test error message.",
+    "CPC-TEST-2006": "Form bank address line 1 invalid test error message.",
+    "CPC-TEST-2007": "Form bank address line 1 no value test error message.",
+    "CPC-TEST-2008": "Form bank address line 2 invalid test error message.",
+    "CPC-TEST-2009": "Form bank city invalid test error message.",
+    "CPC-TEST-2010": "Form bank city no value test error message.",
+    "CPC-TEST-2011": "Form bank state invalid test error message.",
+    "CPC-TEST-2012": "Form bank state no value test error message.",
+    "CPC-TEST-2013": "Form bank zip invalid test error message.",
+    "CPC-TEST-2014": "Form bank zip no value test error message.",
+    "CPC-TEST-2015": "Form bank account type no value test error message.",
+    "CPC-TEST-2016": "Form bank bank account number alpha characters test error message.",
+    "CPC-TEST-2017": "Form bank bank account number no value test error message.",
+    "CPC-TEST-2018": "Form bank bank account number too many digits test error message.",
+    "CPC-TEST-2019": "Form bank routing number alpha characters test error message.",
+    "CPC-TEST-2020": "Form bank routing number no value test error message.",
+    "CPC-TEST-2021": "Form bank routing number no enough digits test error message.",
+    "CPC-TEST-2022": "Form bank routing number too many digits test error message.",
+    "CPC-TEST-2023": "Form card first name invalid test error message.",
+    "CPC-TEST-2024": "Form card first name no value test error message.",
+    "CPC-TEST-2025": "Form card last name invalid test error message.",
+    "CPC-TEST-2026": "Form card last name no value test error message.",
+    "CPC-TEST-2027": "Form card address line 1 invalid test error message.",
+    "CPC-TEST-2028": "Form card address line 1 no value test error message.",
+    "CPC-TEST-2029": "Form card address line 2 invalid test error message.",
+    "CPC-TEST-2030": "Form card city invalid test error message.",
+    "CPC-TEST-2031": "Form card city no value test error message.",
+    "CPC-TEST-2032": "Form card state invalid test error message.",
+    "CPC-TEST-2033": "Form card state no value test error message.",
+    "CPC-TEST-2034": "Form card zip invalid test error message.",
+    "CPC-TEST-2035": "Form card zip no value test error message.",
+    "CPC-TEST-2036": "Form card card number alpha characters test error message.",
+    "CPC-TEST-2037": "Form card card number invalid test error message.",
+    "CPC-TEST-2038": "Form card card number no value test error message.",
+    "CPC-TEST-2039": "Form card card number too many digits test error message.",
+    "CPC-TEST-2040": "Form card expiration month year date in past test error message.",
+    "CPC-TEST-2041": "Form card expiration month year no value test error message.",
+    "CPC-TEST-2042": "Form card security code alpha characters test error message.",
+    "CPC-TEST-2043": "Form card security code no value test error message.",
+    "CPC-TEST-2044": "Form card security code american express not enough digits test error message.",
+    "CPC-TEST-2045": "Form card security code discover not enough digits test error message.",
+    "CPC-TEST-2046": "Form card security code mastercard not enough digits test error message.",
+    "CPC-TEST-2047": "Form card security code visa not enough digits test error message.",
+    "CPC-TEST-2048": "Form card security code american express too many digits test error message.",
+    "CPC-TEST-2049": "Form card security code discover too many digits test error message.",
+    "CPC-TEST-2050": "Form card security code mastercard too many digits test error message.",
+    "CPC-TEST-2051": "Form card security code visa too many digits test error message.",
+    "CPC-TEST-3001": "Service exception default test error message.",
+    "CPC-TEST-3002": "Service exception payment 1001 test error message.",
+    "CPC-TEST-4001": "Communication default test message."
+  }
+}

@@ -1,0 +1,31 @@
+<template id="CardOrBankTemplate">
+<div name="cardOrBankContainer">
+  <div name="jump-error-message-cob-top" class="row"></div>
+  <div class="form-check">
+    <input class="form-check-input"  type="radio" name="jump-radio" id="jump-cc-type" value="CardOnly">
+    <label class="form-check-label" for="jump-cc-type">
+      <strong>Credit or debit card</strong>
+    </label>
+  </div>
+  <div class="d-none" id="jump-credit-card-template">
+    <div class="card card-body">
+      <jump-cc-web-component id="jump-cc-web-component" class="show"></jump-cc-web-component>    
+    </div>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input"  type="radio" name="jump-radio" id="jump-ach-type" value="AchOnly">
+    <label class="form-check-label" for="jump-ach-type">
+      <strong>Bank account</strong>
+    </label>
+  </div>    
+  <div class="d-none" id="jump-ach-template">
+    <div class="card card-body">
+      <jump-ach-web-component id="jump-ach-web-component" class="show"></jump-ach-web-component>
+      <jump-error-web-component id="jump-error-web-component-card-or-bank"></jump-error-web-component>   
+
+    </div>
+  </div>  
+  <div name="jump-error-message-cob-bottom" class="row"></div>  
+</div>
+</template>

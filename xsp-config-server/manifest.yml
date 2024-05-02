@@ -1,0 +1,10 @@
+---
+applications:
+- name: xsp-config-server
+  host: xsp-config-server
+  instances: 2
+  memory: 2048M
+  timeout: 180
+  services:
+  - app-dynamics-service
+

@@ -1,0 +1,49 @@
+<div class="card card-style">
+  <div class="card-body">
+      <div class="card-text">
+      <form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+      <label class="form-label"><span class="text-danger">*</span><b> Page Type</b></label>
+                <select class="form-select" formControlName="pageType">
+                  <option value="" disabled selected>--Select--</option>
+                  <option value="CardOnly">CardOnly</option>
+                  <option value="CardOnlyWithEdit">CardOnlyWithEdit</option>
+                  <option value="MinCardOnly">MinCardOnly</option>
+                  <option value="AchOnly">AchOnly</option>
+                  <option value="AchOnlyWithEdit">AchOnlyWithEdit</option>
+                  <option value="CardOrBank">CardOrBank</option>
+                  <option value="MinCardOnlyWithEdit">MinCardOnlyWithEdit</option>
+                  <option value="MinAchOnly">MinAchOnly</option>
+                  <option value="CardOrExisting">CardOrExisting</option>
+                  <option value="CardBankOrExisting">CardBankOrExisting </option>
+                  <option value="WalletMgmtNoAutopay">WalletMgmtNoAutopay </option>
+                </select>
+
+                <br>
+                <label class="form-label"><span class="text-danger">*</span><b> Channel</b></label>
+                <select class="form-select" formControlName="jsonSelect" (change)="appendJsonData()">
+                <option value="" disabled selected>--Select--</option>
+                <option value="CONSUMER_INT">CONSUMER_INT</option>
+                <option value="SMB">SMB</option>
+                <option value="CONSUMER_INT_MINCARD">CONSUMER_INT_MINCARD</option>
+                <option value="MMCES_LITE">MMCES_LITE</option>
+                <option value="CBPC_RECURRING">CBPC_RECURRING</option>
+                
+                </select>
+<br>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1"><span class="text-danger">*</span><b> Channel Data</b></label>
+                  <textarea class="form-control rounded-0"  formControlName="jsonData" id="exampleFormControlTextarea1" rows="17"></textarea>
+                </div>
+                <br>
+                <div class="col text-center">
+                <button type="submit"  [ngClass]="{'opacity-50': !dataForm.valid }" class="btn btn-primary" [disabled]="!dataForm.valid">Generate</button>
+              </div>
+    
+            </form>
+            </div>
+    
+  </div>
+
+  
+  
+</div>

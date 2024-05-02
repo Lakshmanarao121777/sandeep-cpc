@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="com/comcast/xsp/logging/core/logback/defaults.xml"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="com.couchbase" level="INFO"/>
+    <logger name="org.apache" level="INFO"/>
+    <logger name="org.hibernate" level="INFO"/>
+    <logger name="com.github.dreamhead" level="DEBUG"/>
+    <logger name="io.restassured" level="INFO"/>
+    <logger name="com.comcast.xsp" level="INFO"/>
+    <logger name="com.comcast.cable.cxt.payment" level="INFO"/>
+</configuration>

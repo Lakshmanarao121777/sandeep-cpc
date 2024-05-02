@@ -1,0 +1,12 @@
+<div class="row cc-pad-bottom-20">
+  <div class="col-12"><hr></div>
+  </div>
+  <div class="row cc-pad-bottom-20">
+      <div class="col-12 btn-text-align-rigth">
+      <button type="button" class="btn btn-light rounded-pill">Cancel</button>
+      <button [disabled]="isDisabled" type="button" (click)="onPaymentClick()" class="btn btn-primary rounded-pill btn-margin-left-20" id="jump-continue-payment" >
+        <span *ngIf="isApiCallInProgress" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{buttonText}}
+      </button>
+  </div>
+</div>

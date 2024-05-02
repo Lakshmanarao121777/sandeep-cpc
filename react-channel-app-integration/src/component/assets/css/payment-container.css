@@ -1,0 +1,33 @@
+.card-style {
+    width: 90%;
+    height: 350px;
+    text-align: center;
+}
+
+.cc-pad-bottom-20 {
+    padding-bottom: 20px;
+}
+.component-height {
+    height: 660px;
+}
+.cc-img {
+    height: 100px;
+    width: 100px;
+    margin-left: 40%;
+}
+.card-img-detail{
+    height: 40px;
+    width: 40px;
+}
+.padding-container {
+    padding: 10px;
+  }
+.padding-bottom-30 {
+    padding-bottom: 30px;
+  }
+.cc-pad-bottom-40 {
+    padding-bottom: 40px;  
+}
+.title-border-bottom {
+    border-bottom: solid 1px black;
+}

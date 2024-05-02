@@ -1,0 +1,44 @@
+<template id="BankCardOrExistingTemplate">
+    <div name="cardOrExistingContainer">
+      <div name="jump-error-message-cob-top" class="row"></div>  
+      <div name="cardListPlaceholder">
+    
+      </div>
+      <div name="newPaymentOptionPlaceholder">
+
+      </div>
+      <div class="d-none" name="jump-new-container">
+        <div class="row">
+          <div class="col-6 col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="py-3">
+              <button class="tab-width btn btn-primary" id="jump-ach-type" type="button">
+                <div class='row'>
+                  <img class="check-circle-icon d-none" name="bank-check-circle">
+                  <h5 class="jump-cboe-h5">Bank Account</h5>
+                </div>
+              </button>
+            </div>
+          </div>
+          <div class="col-6 col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="py-3">
+              <button class="tab-width btn btn-primary" id="jump-cc-type" type="button" >
+                <div class='row'>
+                  <img class="check-circle-icon d-none" name="card-check-circle">
+                  <h5 class="jump-cboe-h5 ">Credit/Debit Card</h5>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="d-none" id="jump-new-cc-template">
+          <jump-cc-web-component id="jump-cc-web-component" class="show"></jump-cc-web-component>
+        </div>
+        <div class="d-none" id="jump-new-bank-template">
+          <jump-ach-web-component id="jump-ach-web-component" class="show"></jump-ach-web-component>
+        </div>
+      </div>
+      <div name="jump-error-message-bottom" class="row"></div>
+      <jump-error-web-component id="jump-error-web-component-card-bank-or-existing"></jump-error-web-component>   
+      <div name="jump-error-message-cob-bottom" class="row"></div>  
+    </div>
+    </template>

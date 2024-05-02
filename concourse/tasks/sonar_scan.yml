@@ -1,0 +1,22 @@
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: hub.comcast.net/xia/concourse/jump-box
+    tag: latest
+
+inputs:
+  - name: git-branch
+  - name: concourse-repo
+
+params:
+  artifactory_url: ((artifactory.url))
+  artifactory_user: ((artifactory.user))
+  artifactory_password: ((artifactory.password))
+  sonar_login: ((sonar.user))
+  sonar_host_url: ((sonar.url))
+  
+run:
+  path: concourse-repo/scripts/sonar_scan.sh
+  args: [ ((artifactory.url)) ((artifactory.user)) ((artifactory.password)) ((sonar.user)) ((sonar.url)) ]

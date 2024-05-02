@@ -1,0 +1,50 @@
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: hub.comcast.net/xia/concourse/cpc-service-box
+    tag: latest
+
+inputs:
+  - name: git-branch
+  - name: concourse-repo
+
+params:
+  artifactory_url: ((artifactory.url))
+  artifactory_user: ((artifactory.user))
+  artifactory_password: ((artifactory.password))
+  cf_user: ((service-account.username))
+  cf_password: ((service-account.secret))
+  cf_path: ((cloud-foundry/method-of-payment-service/common.cf_path))
+  cf_domain_nonprod: ((cloud-foundry/method-of-payment-service/non-prod/common.cf_domain))
+  cf_org_nonprod: ((cloud-foundry/method-of-payment-service/non-prod/common.cf_org))
+  cf_space_dev: ((cloud-foundry/method-of-payment-service/non-prod/development.cf_space))
+  cf_host_dev: ((cloud-foundry/method-of-payment-service/non-prod/development.cf_host))
+  cf_space_int: ((cloud-foundry/method-of-payment-service/non-prod/integration.cf_space))
+  cf_host_int: ((cloud-foundry/method-of-payment-service/non-prod/integration.cf_host))
+  config_server_user: ((config-server.username))
+  config_server_password: ((config-server.password))
+  environment: ((environment))
+  sonar_login: ((sonar.user))
+  sonar_host_url: ((sonar.url))
+
+run:
+  path: concourse-repo/scripts/build_deploy_service.sh
+  args: [ ((artifactory.url))
+            ((artifactory.user))
+            ((artifactory.password))
+            ((service-account.username))
+            ((service-account.secret))
+            ((config-server.username))
+            ((config-server.password))
+            ((cloud-foundry/method-of-payment-service/common.cf_path))
+            ((cloud-foundry/method-of-payment-service/non-prod/common.cf_domain))
+            ((cloud-foundry/method-of-payment-service/non-prod/common.cf_org))
+            ((cloud-foundry/method-of-payment-service/non-prod/development.cf_space))
+            ((cloud-foundry/method-of-payment-service/non-prod/development.cf_host))
+            ((cloud-foundry/method-of-payment-service/non-prod/integration.cf_space))
+            ((cloud-foundry/method-of-payment-service/non-prod/integration.cf_host))
+            ((environment))
+            ((sonar.user))
+            ((sonar.url)) ]

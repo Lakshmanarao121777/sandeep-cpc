@@ -1,0 +1,39 @@
+<template id="AddressBaseTemplate">
+    <div name="addressOnlyContainer">
+      <div name="jump-address-option-container">
+  
+      </div>    
+      <div class="d-none" name="jump-address-template" id="jump-address-template">
+        <div class="card card-body">
+    
+            <div class="row">
+                <div class="py-2 col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-12">
+                    <label class="form-label"  for="jump-address">Address line1</label>
+                    <input name="jump-address" type="text" class="form-control" aria-label="Address"></input>
+                </div>
+                <div class="py-2 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <label class="form-label" for="jump-line2">Address line2</label>
+                    <input name="jump-line2" type="text" class="form-control" aria-label="Line2"></input>
+                </div>
+            </div>  
+            <div class="row">
+                <div class="py-2 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <label class="form-label" for="jump-city">City</label>
+                    <input name="jump-city" type="text" class="form-control" aria-label="City"></input>
+                </div>
+                <div class="py-2 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <label class="form-label" for="jump-state">State</label>
+                    <select name="jump-state" class="form-select">
+                        <option>Select</option>                        
+                    </select>                    
+                </div>
+                <div class="py-2 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <label class="form-label" for="jump-zip-code">Zip code</label>
+                    <input name="jump-zip-code" type="text" class="form-control" maxlength="10" aria-label="Zip code"></input>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </template>
+    

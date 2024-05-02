@@ -1,0 +1,169 @@
+#alias
+failure_notification: &failure_notification
+  put: alert
+  params:
+    themeColor: "FF0000"
+    status: FAILURE
+    title: "branch build job failed, refer CI/CD logs provided in link below for details."
+
+error_notification: &error_notification
+  put: alert
+  params:
+    themeColor: "FF0000"
+    status: ERROR
+    title: "Error occured while executing pipeline, refer CI/CD logs provided in link below for details."
+
+
+groups:
+  - name: pull-request
+    jobs: [ validate-pull-request ]
+    # jobs: [ validate-pull-request, merge-pull-request-to-main ]
+# Comment back in once automated versioning/deployment specifics are finalized
+  # - name: main
+  #   jobs: [ publish-to-production ]
+
+# configuring job
+jobs:
+
+  - name: validate-pull-request
+    serial: true
+    plan:
+      - get: concourse-repo
+      - get: git-branch
+      - get: git-pull-request
+        trigger: true
+      - put: git-pull-request
+        params:
+          path: git-pull-request
+          status: pending
+      - task: get-commit-and-pr-ids
+        file: concourse-repo/tasks/get_commit_and_pr_ids.yml
+        input_mapping:
+          code: git-pull-request
+      - task: build-pull-request
+        file: concourse-repo/tasks/build_pr_service.yml
+        input_mapping:
+          appcode: git-pull-request
+        output_mapping:
+          appcode: build
+      #- sonar-pr-checks
+    on_failure:
+      put: git-pull-request
+      params:
+        path: git-pull-request
+        status: failure
+        comment: "Pull request build failed :("
+    on_error:
+      put: git-pull-request
+      params:
+        path: git-pull-request
+        status: Error
+        comment: "Error occured while executing pipeline! :("
+    on_success:
+      put: git-pull-request
+      params:
+        path: git-pull-request
+        status: success
+
+  #- name: merge-pull-request-to-main
+
+# Comment back in once automated versioning/deployment specifics are finalized
+#  - name: publish-to-production
+#    serial: true
+#    plan:
+#      - get: concourse-repo
+#      - get: version
+#        params: {bump: patch}
+#      - get: git-branch
+#        trigger: true
+#      - task: build-source-code
+#        file: concourse-repo/tasks/build_source_service.yml
+#        input_mapping:
+#          version: version
+#        on_failure:
+#          <<: *failure_notification
+#      - put: version
+#        params:
+#          file: version/number
+#      - task: publish-artifact
+#        file: concourse-repo/tasks/publish.yml
+#        on_failure:
+#          <<: *failure_notification
+#        on_error:
+#          <<: *error_notification
+
+# Getting required resources
+resources:
+
+  - name: concourse-repo
+    type: git
+    icon: git
+    check_every: 500h
+    source:
+      branch: main
+      uri: git@github.com:comcast-common-payment/concourse.git
+      username: ((github.username)))
+      private_key: ((github.sshPrivateKey))
+
+  - name: git-branch
+    type: git
+    icon: git
+    check_every: 500h
+    webhook_token: ((method-of-payment-service/github.mainBranchWebhookToken))
+    source:
+      branch: main
+      uri: git@github.com:comcast-common-payment/method-of-payment-service.git
+      username: ((github.username)))
+      private_key: ((github.sshPrivateKey))
+
+  - name: git-pull-request
+    type: pull-request
+    icon: source-pull
+    check_every: 500h
+    webhook_token: ((method-of-payment-service/github.mainPrWebhookToken))
+    source:
+      repository: comcast-common-payment/method-of-payment-service
+      base_branch: main
+      access_token: ((github.accessToken))
+      v3_endpoint: https://api.github.com
+      v4_endpoint: https://api.github.com/graphql
+
+  # - name: alert
+  #   type: teams-notification
+  #   icon: notification
+  #   check_every: 500h
+  #   source:
+  #     webhook_url: ((alerts.deploymentChannelWebhook))
+
+  # - name: version
+  #   type: concourse-git-semver-tag
+  #   source:
+  #     uri: git@github.com:comcast-common-payment/method-of-payment-service.git
+  #     branch: main
+  #     private_key: ((github.sshPrivateKey))
+  #     initial_version: 0.0.0
+
+  # defining resource types
+resource_types:
+
+  - name: artifactory
+    type: registry-image
+    source:
+      repository: hub.comcast.net/pps-portal/artifactory-resource
+      tag: 1.0.5
+
+  - name: teams-notification
+    type: registry-image
+    source:
+      repository: hub.comcast.net/pps-portal/teams-notification-resource
+      tag: latest
+
+  - name: pull-request
+    type: docker-image
+    source:
+      repository: teliaoss/github-pr-resource
+
+  - name: concourse-git-semver-tag
+    type: docker-image
+    source:
+      repository: laurentverbruggen/concourse-git-semver-tag-resource

@@ -1,0 +1,43 @@
+<template id="MinAchOnlyBaseTemplate">
+<div id="jump-min-ach-only-container">
+    <link name="jump-css-url" rel="stylesheet">	
+    <div name="jump-error-message-min-ach-only-block" class="row"></div>
+    <form name="jump-min-ach-only-template-container" >
+      <div class="row">            
+          <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">            
+              <div name="jump-error-message-min-ach-only-top" class="row"></div>
+              
+              <jump-account-type-web-component id="jump-min-ach-only-account-type" account-type-for="Min-Ach-Only"></jump-account-type-web-component>
+
+              <div class="row">
+                  <div class="py-2 col-12">
+                      <label for="jump-account-no" class="form-label">Account number</label>
+                      <span name="jump-modal-trigger-acc" >
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#jumpModalDialog">
+                            <img name="jump-account-no-min-card-icon" data-bs-toggle="modal" data-bs-target="#jumpModalDialog" alt="account number info">
+                        </a>
+                      </span>
+  
+                      <input name="jump-account-no" type="text" maxLength="17" class="form-control" aria-label="Account number" autocomplete="jump-account-no"></input>
+                  </div>
+              </div> 
+              <div class="row">
+                  <div class="py-2 col-12">
+                      <label for="jump-routing-no" class="form-label">Routing number</label>
+                      <span name="jump-modal-trigger-routing" >
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#jumpModalDialog">
+                            <img name="jump-routing-no-min-card-icon" data-bs-toggle="modal" data-bs-target="#jumpModalDialog" alt="routing number info">
+                        </a>                        
+                      </span>
+                      <input name="jump-routing-no" type="text" maxLength="9" class="form-control" aria-label="Routing number" autocomplete="jump-routing-no"></input>
+                  </div>                
+              </div>
+  
+              <div name="jump-error-message-min-ach-only-bottom" class="row"></div>
+              <jump-error-web-component id="jump-error-web-component-min-ach-only"></jump-error-web-component>            
+          </div>                    
+      </div>       
+</div>
+  </form>
+  </template>
+  

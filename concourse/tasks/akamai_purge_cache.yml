@@ -1,0 +1,23 @@
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: akamai/purge
+
+inputs:
+  - name: concourse-repo
+
+run:
+  path: sh
+  args:
+    - -exc
+    - |
+      echo "Inside akamai purge task execution."
+      # Create .edgerc
+      echo "[default]
+        client_secret = ((akamai.client_secret))
+        host = ((akamai.host))
+        access_token = ((akamai.access_token))
+        client_token = ((akamai.client_token))" > $HOME/.edgerc
+      akamai purge --section default invalidate --cpcode $cp_code

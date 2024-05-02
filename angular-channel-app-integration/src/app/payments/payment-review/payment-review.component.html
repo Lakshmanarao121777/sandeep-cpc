@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-sm-4">
+      <payment-summary></payment-summary>
+    </div>
+    <div class="col-sm-8">
+      <div class="row gy-3 padding-bottom-30">
+        <div class="col-12 fs-3" *ngIf="paymentInfo.paymentType === 'cardonly'">
+          Your card will be charged ${{paymentInfo.paymentAmount}}
+        </div>
+        <div class="col-12 fs-3" *ngIf="paymentInfo.paymentType === 'achonly'">
+          Your account will be charged ${{paymentInfo.paymentAmount}}
+        </div>
+        <div class="col-12">
+          Payment Date: {{aDate | date }}
+        </div>
+      </div>
+      <div class="row padding-bottom-30">
+        <div class="col-12">
+          <div class="row gy-3 cc-pad-bottom-20 padding-container border border-3">
+            <div class="col-2">
+              <svg _ngcontent-lib-c21="" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16" class="card-img-top cc-img bi bi-credit-card-2-front-fill"><path _ngcontent-lib-c21="" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"></path></svg>
+            </div>
+            <div class="col-8 fs-5" *ngIf="cardType && cardLast4Digits; else bankTemplate">
+              {{cardType}} ending in {{cardLast4Digits}}
+            </div>
+            <ng-template #bankTemplate>
+              <div class="col-8 fs-5">
+              {{bankAccountType}} account ending in {{bankAccountLast4Digits}}
+            </div>
+            </ng-template>
+
+            <div class="col-2 text-end">
+              <a class="text-primary" (click)="onEdit()" >Edit</a>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-10">
+              {{paymentInfo.firstName + ' ' + paymentInfo.lastName}}<br>{{paymentInfo.address}}<br>{{paymentInfo.city}} {{paymentInfo.state}}, {{paymentInfo.zipCode}}
+            </div>
+            <div class="col-2"></div>
+            <div class="col-10">
+              <hr>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-10">
+              By submitting a payment you authorize Xfinity mobile to charge your credit card or debit card for the total amount on the date shown above.
+              Xfinity mobile is not liable and will not issue refund for inacurate or invalid payment information delays in payment processing or any loses incur
+              as a result of erroneous statement or balance information.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row gy-5 padding-bottom-30">
+      <div class="col-6">
+        <label class="form-label fw-bold">EMAIL CONFIRMAITON (OPTIONAL)</label>
+        <input name="email" type="text" class="form-control" aria-label="Email">
+      </div>
+      </div>
+      <continue-payment-button buttonText="Submit Payment"></continue-payment-button>
+    </div>
+  </div>
+</div>
+
+
+

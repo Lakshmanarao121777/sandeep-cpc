@@ -1,0 +1,29 @@
+<template id="CardOrBankOptionTemplate">
+    <div name="cardOrBankContainer">
+      <div name="jump-error-message-cob-top" class="row"></div>
+      <div class="row">
+        <div class="py-2 col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <button class="tab-width btn btn-primary" id="jump-cc-type" type="button" name='jump-button-option-cc'>
+            Credit/Debit Card
+          </button>
+        </div>
+        <div class="py-2 col-xxl-6 col-xl-6 col-lg-6  col-md-6 col-sm-12">
+            <button class="tab-width btn btn-primary" id="jump-ach-type" type="button" name='jump-button-option-ach'>
+              Bank Account
+            </button>
+          </div>
+        </div>
+        <div class="d-none" id="jump-credit-card-template">
+          <div class="card card-body">
+            <jump-cc-web-component id="jump-cc-web-component" class="show"></jump-cc-web-component>    
+          </div>
+        </div>
+        <div class="d-none" id="jump-ach-template">
+          <div class="card card-body">
+            <jump-ach-web-component id="jump-ach-web-component" class="show"></jump-ach-web-component>
+            <jump-error-web-component id="jump-error-web-component-card-or-bank"></jump-error-web-component>   
+          </div>
+        </div> 
+      <div name="jump-error-message-cob-bottom" class="row"></div>  
+    </div>
+    </template>

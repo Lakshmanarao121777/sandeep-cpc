@@ -1,0 +1,88 @@
+<template id="CardListBaseTemplate">
+    <link name="jump-css-url" rel="stylesheet" />
+    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12" id="cclistDiv">
+      <div name="jump-card-list-option">
+        <img class="circle-plus-icon" id="jump-plus-circle-icon">
+        <div class="jump-wallet-row-a">
+        <div class=" jump-col-d jump-col-a">
+          <div class="jump-row-1-a">
+          <div name="jump-card-list-option"></div>
+        <div class="jump-col-2-a">
+            <span>
+              <img name="jump-card-url" style="height: 20px"/>
+            </span>
+          </div>
+          <div class="jump-col-2-b">
+            <label class='jump-desc-col-2' name="jump-card-description"></label>
+          </div>
+          <div class="jump-col-2-c">
+            <span class="badge bg-primary" name="jump-card-default"></span>
+            <span class="badge bg-primary" name="jump-card-autopay"></span>
+          </div>
+          </div>
+          </div>
+          <div class='jump-col-d jump-col-b'>
+           <div class="jump-row-1-b">
+            <div class="jump-col-3-a"><label name="jump-card-expiry"></label></div>
+            <div id="jump-edit-icon" class="jump-col-3-b" name="jump-edit-existing">
+              <img class="pencil-square-icon" id="jump-pencil-square-icon">
+              <button class="box-input-button jump-edit-existing" id='jump-edit-existing' type="button">
+                Edit
+              </button>
+            </div>
+            <div class="jump-col-3-c" id="jump-remove-icon">
+              <img class="trash-icon" id="jump-trash-icon">
+              <button class="box-input-button jump-remove-existing" id='jump-remove-existing' name="jump-modal-trigger-wallet" type="button">
+                Remove
+              </button>
+            </div>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="jump-wallet-col-edit">
+      <div class="py-2 expiration-box d-none" name="jump-expiration-date">
+        <div class="jump-row-2">  
+          <div class="jump-row-2-a">
+            <div class="py-2 jump-expiration-col-1" id="jump-expiration-col">
+              <label for="jump-expiry-mm" class="form-label">Expiration</label>
+              <select name="jump-expiry-mm" class="jump-form-select">
+                <option value="" disabled selected>Month</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+            </div>
+            <div class="py-2 jump-expiration-col-2">
+              <label for="jump-expiry-yy" class="form-label">&nbsp;</label>
+              <select name="jump-expiry-yy" class="jump-form-select">
+                <option value="" disabled selected>YYYY</option>
+              </select>
+            </div>
+          </div>
+          <div class="jump-row-2-b">
+            <div class="py-2 jump-expiration-col-3">
+              <button class='jump-btn jump-update-expiration-btn' id="jump-update-expiration" >SAVE</button>
+            </div>
+            <div class="py-2 jump-expiration-col-4">
+              <button class='jump-btn jump-cancel-expiration-btn' id="jump-cancel-expiration" >CANCEL</button>
+            </div>
+          </div>
+        </div>
+        <div name="jump-expiration-date-feedback" class="invalid-feedback"></div>
+      </div>
+      <div class="col-12" id="jump-new-cardlist-hr"><hr /></div>
+    </div>
+  </div>
+</template>
+    

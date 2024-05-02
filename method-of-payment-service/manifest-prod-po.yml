@@ -1,0 +1,13 @@
+applications:
+  - name: method-of-payment-service
+    env:
+      SPRING_APPLICATION_NAME: method-of-payment-service
+      SPRING_CLOUD_CONFIG_URI: https://cpc-config-server-v2-prod.po-c1.cf.comcast.net
+      SPRING_CLOUD_CONFIG_LABEL: main
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_CLOUD_CONFIG_ENABLED: true
+      SPRING_CLOUD_BUS_ENABLED: false
+      JBP_CONFIG_OPEN_JDK_JRE: "{ jre: { version: 11.+ }, memory_calculator: { stack_threads: 25 } }"
+      JAVA_OPTS: "-javaagent:/home/vcap/app/.java-buildpack/app_dynamics_agent/javaagent.jar -Dappdynamics.agent.applicationName=Method_of_Payment_Service -Dappdynamics.agent.tierName=Method_of_Payment_Service_v2_Prod_po"
+
+

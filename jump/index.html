@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JUMP Web Component</title>
+    <meta name="description" content="JUMP Web Component" />
+    <meta name="author" content="Common Payment Component Team" />  
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">  
+    <link rel="stylesheet" href="./assets/css/global-light.css">
+    <script>   
+    function clearFormData() {
+    }
+    function getChannelData(){
+      let authToken = 'eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVFNpZ25pbmdDZXJ0LTIwMjAtTExFIiwicGkuYXRtIjoiNSJ9.eyJzY29wZSI6WyJ4c3A6bWV0aG9kb2ZwYXltZW50c2VydmljZTphbGwiXSwiY2xpZW50X2lkIjoiY3h0X3BiX2NvbW1vbl9wYXltZW50IiwiaXNzIjoiaHR0cHM6Ly93ZWJzZWMtaW50LmNhYmxlLmNvbWNhc3QuY29tIiwiZXhwIjoxNjQyMTA4ODI0fQ.Isl3ZexK9v4UT-o6UMKkCY_v1GredxPkNeoQyFzhymarppClWIp_tNBjuD1KWyc9mcp6SDRaKB1PxX6aqalBuBwlhgLyTu8h-XwF0EgKD4vMTLkYCKwKRZv1N5rYQfIFPoeuWfbhcChC2ZdRAdfNsjZETced4zIjlyOEobl44zD6VSkFQIAAFVMrnKkRriW9q_2tZMEEmJ0rFyMQfcBC44OyCqzZP8pX1QQKX1CbbtDBQi7TKRcFtw4OCuDa_aecR_xkJdmooQjtg34HPphAEwlHKGHT9k9ZL-Ci1jzdoRkd89hNbBN1ZXNzR-DvkPU4xvx1yHgMa9QBiIuUUSiQiw';
+      let channelData = Object.assign({});
+      let paymentAmount = 14.99;
+      let customerInfo = {
+        customerName: {
+          firstName: 'Art',
+          lastName: 'Vandelay',
+        },
+        customerAddress: {
+          address: '1701 JFK Blvd',
+          addressLine2: 'Studio C',
+          city: 'Philadelphia',
+          state: 'PA',
+          zipCode: '19103',
+        },
+      }
+      channelData.paymentAmount = paymentAmount;
+      channelData.isSubmitPayment = true;
+      channelData.authToken = authToken;
+      //channelData.header = this.getHeader(authToken);
+      channelData.requestBody = authToken;
+      channelData.address = customerInfo.customerAddress;
+      //channelData.customerDetails = customerInfo.customerName;
+      channelData.requirePaymentMethodSelection = true; // true or false default true
+      channelData.channelDetails = {
+      sourceServerId: "localhost",
+      sourceSystemId: 'CONSUMER_INT',//"common-payment",
+      timestamp: new Date().toISOString(), // timestamp
+      trackingId: 3,
+      partnerId: "Comcast",
+      // sessionId: string,
+      channelName: 'CONSUMER_INT', //'mmces_lite',mmces_onetime,'CONSUMER_INT',
+      enableFraudManager: true,
+      cpcMessageDisplayLocation:"", //input: "","top","center", or "bottom"
+      customerClass: 'residential' //business,residential,  by defualt residential
+      };
+      channelData.config = {
+        enableIguardIntegration: true
+      }
+      channelData.customerDetails = {
+      // cimaUserToken: billingArrangementId.cimaUserToken,
+      walletId: 'cust559903', // billingArrangementId.walletId,
+      billingArrangementId: '8720101010393451', // billingArrangementId.billingArrangementId,
+      firstName: customerInfo.customerName.firstName,
+      lastName: customerInfo.customerName.lastName,
+      displayAddress:true,
+      address: customerInfo.customerAddress.address,
+      addressLine2: customerInfo.customerAddress.addressLine2,
+      city: customerInfo.customerAddress.city,
+      state: customerInfo.customerAddress.state,
+      zip: customerInfo.customerAddress.zipCode
+    };
+    return channelData;
+    }         
+      function onContinuePayment() {
+          var channelData = getChannelData();
+          //channelData.isSubmitPayment = true;
+          var message = {
+          channel:'jump-iframe',
+          action: 'CPC_FORM_SUBMIT',
+          cpcPageType: document.querySelector('jump-web-component').cpcPageType,          
+          channelData: channelData
+          }      
+          console.log('channel data...', channelData);
+        document.querySelector("jump-web-component").shadowRoot.querySelector("iframe").contentWindow.postMessage(JSON.stringify(message), '*');
+      }
+      function postDataToHostApp(data) {
+        var message = {
+          channel:'quick-pay',
+          action: 'EXPIRY_DATE_VALIDATION',
+          cpcPageType: document.querySelector('jump-web-component').cpcPageType,
+          messageData:data
+          }
+          document.querySelector("jump-web-component").shadowRoot.querySelector("iframe").contentWindow.postMessage(JSON.stringify(message), '*');
+      }   
+            
+      window.addEventListener('message', (message) => {    
+        //MUST NEEDED: TO RUN WEB-COMPONENT PROPERY IN REACT CHANNEL APP 
+        // if(message && message.data && message.data.source && message.data.source.indexOf('react-devtools')>=0 ) {
+        //     return;
+        //   }                 
+
+        if(message && message.data && typeof message.data==='string' && message.data.indexOf("\"action\":") >= 0){
+        let data = JSON.parse(message.data);
+        switch(data.action) {
+          case 'CPC_FORM_SUBMIT_RESPONSE':            
+            document.getElementById('showMessage').innerHTML = JSON.stringify(data.paymentMessage);
+            break;
+          case 'CPC_CONFIG_SUBMIT':
+            console.log('CPC_CONFIG_SUBMIT - inside..', data);            
+            var channelData = getChannelData(); 
+            data.channelData = channelData;
+            //data.action = 'CPC_CONFIG_SUBMIT';
+            document.querySelector("jump-web-component").shadowRoot.querySelector("iframe").contentWindow.postMessage(JSON.stringify(data), '*');
+            break;
+          case 'CPC_CONFIG_READY':
+            console.log('jump component CPC_CONFIG_READY', data);
+            var channelData = getChannelData();            
+            if(data && data.config) {                
+                data.action = 'CPC_CONFIG_SUBMIT';
+                data.channelData = channelData;
+                window.postMessage(JSON.stringify(data), '*');
+            } 
+            break;
+          default:
+            break;
+          }
+        }
+        
+      });
+
+  </script>
+  <style>
+    body {
+      --bg-color: #2196F3;
+    }
+  </style>
+  </head>
+
+  <body>           
+  <div class="container container-fliud">       
+    <div class="row mb-3">                    
+        <jump-web-component cpc-page-type="MinCardOnly"
+          cpc-env="local"           
+          cpc-page-height="580px"
+          cpc-page-width="100%"
+          cpc-page-border="none">
+        </jump-web-component>            
+    </div>
+
+    <div class="row cc-pad-bottom-20">
+      <div class="col-12"><hr> </div>
+    </div>
+      <div class="row cc-pad-bottom-20">
+          <div class="col-12 btn-text-align-rigth">
+          <button type="button" class="btn btn-light rounded-pill">Cancel</button>
+          <button type="button" class="btn btn-primary rounded-pill btn-margin-left-20" id="jump-continue-payment" onclick="onContinuePayment();">Review Payment</button>
+      </div>                
+    </div>
+  </div>
+  
+  
+  <footer>
+    <!-- <div id="showMessage"></div> -->
+  </footer>    
+        
+    <script>
+        window.addEventListener('DOMContentLoaded', (e) =>{
+            
+        }); 
+        function setPaymentType(obj){
+          console.log('set payment...', document.querySelector('jump-web-component'));
+          clearFormData();
+            document.querySelector('jump-web-component').cpcPageType = obj.value;           
+        }     
+    </script>
+    <script src="native-shim.js"></script>
+    <script src="jump-web-component-bundle.js"></script>
+  </body>
+</html>

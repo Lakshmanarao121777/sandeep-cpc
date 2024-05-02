@@ -1,0 +1,37 @@
+<div *ngIf="dataSubmitted">
+<div class="row gy-5 cc-pad-bottom-20">
+  <div class="col-12">
+    <strong>PAYMENT AMOUNT<br />{{paymentAmount}} </strong>
+  </div>
+
+  <!-- <div><button (click)="achOnly()">AchOnly</button> </div>
+  <div><button (click)="cardOnly()">CardOnly</button> </div> -->
+  <min-ach-only *ngIf="cpcPageType === 'MinAchOnly'"></min-ach-only>
+  <min-card-only *ngIf="cpcPageType === 'MinCardOnly'"></min-card-only>
+  <card-or-bank *ngIf="pageType === 'paymentTypeSelection'" (cpcPageTypeChange)="openTemplate($event)"></card-or-bank>
+</div>
+<div class="row">
+  <div class="col-12" *ngIf="cpcPageType !== 'paymentTypeSelection'">
+    <div *ngIf="isLoading">
+      <div class="loader"></div>
+    </div>
+    <jump-web-component
+      *axLazyElement
+      [cpcEnv]="hostAppUrl"
+      [cpcPageHeight]="iframeHeight"
+      [cpcPageWidth]="iframeWidth"
+      [cpcPageType]="cpcPageType"
+      [cpcPageLabelCase] = "labelCase"
+      cpc-page-border="none"
+    >
+    </jump-web-component>
+  </div>
+</div>
+<div class="row cc-pad-top-20">
+  <div class="col-12">
+    <div id="showMessage" class="row"></div>
+  </div>
+</div>
+<div></div>
+<continue-payment-button [isApiCallInProgress]="isApiCallInProgress" [isDisabled]="isDisabled" [buttonText]="buttonDisplayText" (onContinuePayment)="paymentClick()" ></continue-payment-button>
+</div>

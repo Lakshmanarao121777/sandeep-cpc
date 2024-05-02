@@ -1,0 +1,87 @@
+service.name=method-of-payment-service
+spring.application.name=${service.name}
+server.port=6061
+service.environment=prod
+management.health.binders.enabled=false
+
+#********** Cloud Config Default Settings *******************
+spring.cloud.config.label=production
+spring.cloud.config.uri=http://localhost:8888
+
+#********** Security Settings *******************
+xsp.security.rest.authenticated.paths=/auth/api/MethodOfPaymentService/**
+xsp.security.rest.permitted.paths=/api/v2/MethodOfPaymentService/**
+authServer.scope=xsp:methodofpaymentservice:all
+
+xsp.security.endpoints.cors.allowed-origins=https://common-payment.xfinity.com
+xsp.security.endpoints.cors.allowed-methods=GET,POST,OPTIONS
+xsp.security.endpoints.cors.allowed-headers=*
+
+xsp.security.pf.server.url=https://websec.cable.comcast.com/as/token.oauth2
+
+## If you don't have the config server configured for your project, use this property
+
+xsp.security.provider.pf.endpoint.tokengr1=https://websec.cable.comcast.com/ext/jwtsigningcert/jwks
+
+# Whether to enable the bus or cloud config.  The bus cannot be
+# enabled outside of CF unless you can provide it with all the
+# configs/URLs to connect to the CF rabbitQ queue.
+# Enable the cloud config and provide the cloud config URL and
+# profiles to run if you want the service to hit a remote config server.
+spring.cloud.bus.amqp.enabled=false
+spring.cloud.bus.enabled=false
+spring.cloud.config.enabled=false
+
+
+## Autopay Service Client
+restclient.def.autopayservice.endpoint=https://payment-api-gateway.apps.cloud.comcast.net/autopay/
+restclient.def.autopayservice.connectTimeout=5000
+restclient.def.autopayservice.readTimeout=30000
+
+## Payment Key Service Client
+restclient.def.paymentkeyservice.endpoint=https://payment-api-gateway.apps.cloud.comcast.net/payment-key/public
+restclient.def.paymentkeyservice.connectTimeout=5000
+restclient.def.paymentkeyservice.readTimeout=30000
+
+## Wallet Service Client
+restclient.def.walletservice.endpoint=https://payment-api-gateway.apps.cloud.comcast.net/wallet/
+restclient.def.walletservice.connectTimeout=5000
+restclient.def.walletservice.readTimeout=30000
+
+## Payment Configuration Service Client
+restclient.def.paymentconfigurationservice.endpoint=https://payment-api-gateway.apps.cloud.comcast.net/payment-configuration/
+restclient.def.paymentconfigurationservice.connectTimeout=5000
+restclient.def.paymentconfigurationservice.readTimeout=30000
+
+## Payment Contract Service Client
+restclient.def.paymentcontractservice.endpoint=https://payment-contract-service.apps.cloud.comcast.net/api/v1/PaymentContractService/recordContract
+restclient.def.paymentcontractservice.connectTimeout=5000
+restclient.def.paymentcontractservice.readTimeout=30000
+
+xsp.security.authServer.username=cxt_pb_common_payment_2023
+xsp.security.authServer.secret={{cxt_pb_common_payment_oauth2_secret}}
+xsp.security.authServer.configs[0].endpointPatterns=payment-key
+xsp.security.authServer.configs[0].scopes=xsp:payment:key xsp:payment:key:public
+xsp.security.authServer.configs[1].endpointPatterns=wallet
+xsp.security.authServer.configs[1].scopes=xsp:payment:wallet
+xsp.security.authServer.configs[2].endpointPatterns=payment-configuration
+xsp.security.authServer.configs[2].scopes=xsp:payment:configuration
+xsp.security.authServer.configs[3].endpointPatterns=autopay
+xsp.security.authServer.configs[3].scopes=xsp:payment:autopay
+
+#TODO Verify how below properties being used and working
+## Test Flight-Check
+xsp.test.flightcheck.appprops=AYBABTU
+xsp.test.flightcheck.overridevalue=Vegeta
+
+remoteservice.moco.url=http://localhost:12306
+
+moco.endpoint.contractmococheck.path=/contract/mococheck
+moco.endpoint.contractmococheck.url=${remoteservice.moco.url}/contract/mococheck
+
+cpc.channel.allowList=BSD_DIGITAL_SALES,CBPC_ONETIME,CBPC_QUICKPAY,CBPC_RECURRING,CONSUMER_INT,EINSTEIN_TKN,PREPAID_LITE,SMB_LITE,MMCES_LITE,XFINITY_MOBILE_LITE_TKN,XFINITY_MOBILEBUS_LITE,XFINITY_MOBILE_TKN,SMB,MMCES_ONETIME,XFINITY_MOBILEBUS,CAFE,PREPAID_TKN,WEB_MY_ACCT,WEB_LITE_MY_ACCT
+cpc.auth.channels=CBPC_ONETIME,CBPC_RECURRING,EINSTEIN_TKN,SMB,MMCES_ONETIME,XFINITY_MOBILEBUS,CAFE,XFINITY_MOBILE_TKN,PREPAID_TKN,WEB_MY_ACCT
+cpc.unauth.lite.channels=CBPC_QUICKPAY,SMB_LITE,MMCES_LITE,PREPAID_LITE,XFINITY_MOBILE_LITE_TKN,XFINITY_MOBILEBUS_LITE,WEB_LITE_MY_ACCT
+cpc.unauth.buyflow.channels=BSD_DIGITAL_SALES
+cpc.test.channels=CONSUMER_INT
+cpc.bankexclude.channels=XFINITY_MOBILE_LITE_TKN,XFINITY_MOBILE_TKN,XFINITY_MOBILEBUS_LITE,XFINITY_MOBILEBUS,XFINITY_MOBILE_DM

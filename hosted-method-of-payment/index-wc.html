@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JUMP Web Component</title>
+    <meta name="description" content="JUMP Hosted Payment App" />
+    <meta name="author" content="SitePoint" />    
+    <link rel="stylesheet" href="./assets/css/global-light.css">
+    <!-- we will remove this code once we get auth token from chanel app-->
+    <input type="hidden" class="hide" name="token" value='Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkpXVFNpZ25pbmdDZXJ0LTIwMjAtTExFIiwicGkuYXRtIjoiNSJ9.eyJzY29wZSI6WyJ4c3A6bWV0aG9kb2ZwYXltZW50c2VydmljZTphbGwiXSwiY2xpZW50X2lkIjoiY3h0X3BiX2NvbW1vbl9wYXltZW50IiwiaXNzIjoiaHR0cHM6Ly93ZWJzZWMtaW50LmNhYmxlLmNvbWNhc3QuY29tIiwiZXhwIjoxNjM0MDUwNTE5fQ.gtQGDzDo6e9jqoSRMS5WPjbhwXD4ZiXESl_v3NJP-QbZL9h5VLE7e0gIt1sBt40bnBEVrW2itmKc2XEgYSEw4PVzcpTqtZ5bJTtQQsJd9I7wZtU2i2WWR4j08i4zO9HDE1p5_LF6zaX8UBfNf5TTFn9DYAIq8j4GTFEUG0i99ZcQ69bNVSIsVPACsS0llDFJPlKL8wKPsgSPvN2vE7IM30lFOYfFLBuNbaqxl-V2QLi3c48HaxPWolju_6ryQrI78zv2Yapg6KNqo0XebcQGVXPZghteQ6YnclRl73UbCrNkf3hGMlALwzvhW6z-yIMX6rErYh7DA5Fhy15Vl0TRJg'>
+    <input type="hidden" class="hide" name="publicKey" value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCHW6Jf4UCRuOxUBkIb4C/w/gNjDtU3uhRD9kzZuhjzAasG2131Gd47ks8khvilKEVdnn3tNfIszhd5Zg3XAYuCGeTX+wUC+6WJGg0u2gLh9CllamDX/paXIeDVR1Cf6W0+vWW+sa9U9JyOsiyvd8jTqA9gX7ZowFYEAoOwMMjscwIDAQAB">
+   
+    <script>       
+      function onContinuePayment() {
+          var checkoutData = Object.assign({});          
+          var message = {
+          channel:'jump-iframe',
+          action: 'FORM_SUBMIT_RESPONSE',
+          cpcPageType: document.querySelector('jump-web-component').cpcPageType,
+          channelData: checkoutData
+          }      
+        console.log('mmmmmm...', message);
+        document.querySelector("jump-web-component").shadowRoot.querySelector("iframe").contentWindow.postMessage(JSON.stringify(message), '*');              
+      }
+      function postDataToHostApp(data) {
+        var message = {
+          channel:'quick-pay',
+          action: 'EXPIRY_DATE_VALIDATION',
+          cpcPageType: document.querySelector('jump-web-component').cpcPageType,
+          messageData:data
+          }
+          document.querySelector("jump-web-component").shadowRoot.querySelector("iframe").contentWindow.postMessage(JSON.stringify(message), '*');
+      }   
+            
+      window.addEventListener('message', (message) => {    
+        //HACK: TO RUN WEB-COMPONENT PROPERY IN REACT CONSUMER 
+        if(message && message.data && message.data.source && message.data.source.indexOf('react-devtools')>=0 ) {
+            return;
+          }                 
+        if(message && message.data){
+        
+        let data = JSON.parse(message.data);
+        switch(data.action) {
+          case 'CPC_FORM_SUBMIT':            
+            document.getElementById('showMessage').innerHTML = JSON.stringify(data.paymentMessage);
+            break;
+          case 'CPC_CONFIG_SUBMIT':
+            console.log('CPC_CONFIG_SUBMIT - inside..', data);            
+            document.querySelector("jump-web-component").shadowRoot.querySelector("iframe").contentWindow.postMessage(JSON.stringify(data), '*');
+
+            break;
+          default:
+            break;
+          }
+        }
+        
+      });
+
+  </script>
+  <style>
+    body {
+      --bg-color: #2196F3;
+    }
+  </style>
+  </head>
+
+  <body>           
+  <div class="container">    
+   
+    <div class="row mb-3">
+      <div class="col-sm-8">
+        <div class="row component-height">        
+        <jump-web-component cpc-page-type='CardOnly' 
+        cpc-page-height="580px"
+        cpc-page-width="50%"
+        cpc-page-border="none"
+        cpc-env="development">
+       </jump-web-component>
+      </div>             
+      </div> 
+    </div>
+
+    <div class="row cc-pad-bottom-20">
+      <div class="col-12"><hr> </div>
+    </div>
+      <div class="row cc-pad-bottom-20">
+          <div class="col-12 btn-text-align-rigth">
+          <button type="button" class="btn btn-light rounded-pill">Cancel</button>
+          <button type="button" class="btn btn-primary rounded-pill btn-margin-left-20" id="jump-continue-payment" onclick="onContinuePayment();">Review Payment</button>
+      </div>                
+    </div>
+  </div>
+  
+  <footer><div id="showMessage"></div></footer>    
+        
+    <script>
+        window.addEventListener('DOMContentLoaded', (e) =>{
+          //we will remove this code once we get auth token from chanel app
+          localStorage.setItem("token", document.getElementsByName("token")[0].value);
+          localStorage.setItem("publicKey", document.getElementsByName("publicKey")[0].value);
+        
+        });   
+        function setPaymentType(obj){
+          console.log('set payment...', document.querySelector('jump-web-component'));          
+          document.querySelector('jump-web-component').cpcPageType = obj.value;            
+        }     
+    </script>
+    <script src="native-shim.js"></script>
+    <script src="jump-web-component-bundle.js"></script>
+  </body>
+</html>

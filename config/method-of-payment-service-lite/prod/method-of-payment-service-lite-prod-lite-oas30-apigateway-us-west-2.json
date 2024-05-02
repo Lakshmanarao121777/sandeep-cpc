@@ -1,0 +1,623 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "method-of-payment-service-lite-prod",
+    "description" : "Method Of Payment Service Prod - LITE Flow API Gateway US West 2",
+    "version" : "2023-11-07T20:59:24Z"
+  },
+  "servers" : [ {
+    "url" : "https://i1nsc07gqc.execute-api.us-west-2.amazonaws.com/{basePath}",
+    "variables" : {
+      "basePath" : {
+        "default" : "lite"
+      }
+    }
+  } ],
+  "paths" : {
+    "/api/v2/MethodOfPaymentService/addToWallet/PREPAID_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/addToWallet/PREPAID_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPublicKey/SMB_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPublicKey/SMB_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v1/MethodOfPaymentService/getPublicKey" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v1/MethodOfPaymentService/getPublicKey",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPaymentConfiguration/XFINITY_MOBILEBUS_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPaymentConfiguration/XFINITY_MOBILEBUS_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPaymentConfiguration/CBPC_QUICKPAY" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPaymentConfiguration/CBPC_QUICKPAY",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPaymentConfiguration/PREPAID_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPaymentConfiguration/PREPAID_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPublicKey/XFINITY_MOBILE_LITE_TKN" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPublicKey/XFINITY_MOBILE_LITE_TKN",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v1/MethodOfPaymentService/addToWallet" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v1/MethodOfPaymentService/addToWallet",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/addToWallet/SMB_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/addToWallet/SMB_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPaymentConfiguration/MMCES_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPaymentConfiguration/MMCES_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPublicKey/MMCES_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPublicKey/MMCES_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPaymentConfiguration/XFINITY_MOBILE_LITE_TKN" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPaymentConfiguration/XFINITY_MOBILE_LITE_TKN",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/addToWallet/XFINITY_MOBILE_LITE_TKN" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/addToWallet/XFINITY_MOBILE_LITE_TKN",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPublicKey/CBPC_QUICKPAY" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPublicKey/CBPC_QUICKPAY",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPublicKey/XFINITY_MOBILEBUS_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPublicKey/XFINITY_MOBILEBUS_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v1/MethodOfPaymentService/getPaymentConfiguration" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v1/MethodOfPaymentService/getPaymentConfiguration",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/addToWallet/MMCES_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/addToWallet/MMCES_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/addToWallet/CBPC_QUICKPAY" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/addToWallet/CBPC_QUICKPAY",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/addToWallet/XFINITY_MOBILEBUS_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/addToWallet/XFINITY_MOBILEBUS_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPaymentConfiguration/SMB_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "connectionId" : "hddqe2",
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPaymentConfiguration/SMB_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "connectionType" : "VPC_LINK",
+          "type" : "http_proxy"
+        }
+      }
+    },
+    "/api/v2/MethodOfPaymentService/getPublicKey/PREPAID_LITE" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "httpMethod" : "POST",
+          "uri" : "https://method-of-payment-service.apps.cloud.comcast.net/api/v2/MethodOfPaymentService/getPublicKey/PREPAID_LITE",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "type" : "http_proxy"
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Empty" : {
+        "title" : "Empty Schema",
+        "type" : "object"
+      }
+    }
+  }
+}

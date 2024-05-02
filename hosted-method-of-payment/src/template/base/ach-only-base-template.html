@@ -1,0 +1,69 @@
+<template id="AchOnlyBaseTemplate">
+<div id="jump-ach-only-container">
+    <link name="jump-css-url" rel="stylesheet">	
+    <div name="jump-error-message-ach-block" class="row"></div>
+    <form name="jump-ach-template-container" >
+      <div class="row">            
+          <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">            
+              <!-- <div class="row gy-5">                    
+                  <div class="col-12">
+                  <strong>ACH DETAIL</strong>
+                  </div> 
+              </div>                 -->
+              <div name="jump-error-message-ach-top" class="row"></div>
+              <div class="row">                
+                  <div class="py-2 col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                      <label  id="jump-first-name-label" name="jump-first-name-label" for="jump-first-name" class="form-label" >First name</label>
+                      <input name="jump-first-name" type="text" class="form-control" aria-label="First name" autocomplete="jump-first-name"></input>
+                  </div>
+                  <div class="py-2 col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                      <label id="jump-last-name-label" name="jump-last-name-label" for="jump-last-name" class="form-label">Last name</label>
+                      <input name="jump-last-name" type="text" class="form-control" aria-label="Last name" autocomplete="jump-last-name"></input>
+                  </div>
+                  
+              </div>
+              
+              <jump-account-type-web-component id="jump-ach-account-type" account-type-for="ACH"></jump-account-type-web-component>
+
+              <div name="jump-error-message-ach-center" class="row"></div>
+              <div class="row">
+                  <div class="py-2 col-12">
+                      <label id="jump-account-no-label" for="jump-account-no" class="form-label">Account number</label>
+                      <span name="jump-modal-trigger-acc" >
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#jumpModalDialog">
+                            <img class="info-icon-img" name="jump-account-no-icon" data-bs-toggle="modal" data-bs-target="#jumpModalDialog" alt="account number info">
+                        </a>
+                      </span>
+  
+                      <input name="jump-account-no" id="jump-account-no" type="text" maxLength="17" class="form-control" aria-label="Account number" autocomplete="jump-account-no"></input>
+                  </div>
+              </div>  
+              <div class="row">
+                  <div class="py-2 col-12">
+                      <label id="jump-routing-no-label" for="jump-routing-no" class="form-label">Routing number</label>
+                      <span name="jump-modal-trigger-routing" >
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#jumpModalDialog">
+                            <img class="info-icon-img" name="jump-routing-no-icon" data-bs-toggle="modal" data-bs-target="#jumpModalDialog" alt="routing number info">
+                          </a>                         
+                      </span>
+                      <input name="jump-routing-no" id="jump-routing-no" type="text" maxLength="9" class="form-control" aria-label="Routing number" autocomplete="jump-routing-no"></input>
+                  </div>                
+              </div>
+              <jump-care-web-component id="jump-ach-care" care-for="ACH"></jump-care-web-component>
+              <div class="row">
+                <div class="col-12 jump-billing-address">Billing address</div>
+              </div>
+              <jump-address-web-component id="jump-ach-address" address-for="ACH"></jump-address-web-component>
+              <jump-auto-pay-web-component id="jump-auto-pay-ach" auto-pay-for="ACH"></jump-auto-pay-web-component>          
+              <jump-terms-and-condition-web-component id="jump-tc-ach" tc-for="ACH"></jump-terms-and-condition-web-component>  
+              <jump-userrole-list-web-component id="jump-userrole-list-ach" userrole-list-for="ACH" ></jump-userrole-list-web-component>
+              <jump-default-payment-web-component id="jump-default-payment-ach" default-payment-for="ACH"></jump-default-payment-web-component>   
+
+              <div name="jump-error-message-ach-bottom" class="row"></div>
+              <jump-error-web-component id="jump-error-web-component-ach"></jump-error-web-component>            
+          </div>                    
+      </div>       
+  </form>
+</div>
+  </template>
+  

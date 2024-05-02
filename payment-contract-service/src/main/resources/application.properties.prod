@@ -1,0 +1,55 @@
+service.name=payment-contract-service
+spring.application.name=${service.name}
+service.environment=prod
+management.health.binders.enabled=false
+
+#********** Cloud Config Default Settings *******************
+spring.cloud.config.label=production
+spring.cloud.config.uri=http://localhost:8888
+
+#********** Security Settings *******************
+xsp.security.rest.authenticated.paths=/api/v2/PaymentContractService/**
+xsp.security.rest.permitted.paths=/api/v1/PaymentContractService/**,/PaymentContractService
+authServer.scope=xsp:payment:contract
+
+xsp.security.pf.server.url=https://websec.cable.comcast.com/as/token.oauth2
+
+## If you don't have the config server configured for your project, use this property
+xsp.security.provider.pf.endpoint.tokengr1=https://websec.cable.comcast.com/ext/jwtsigningcert/jwks
+
+xsp.security.endpoints.cors.allowed-origins=https://common-payment.xfinity.com
+xsp.security.endpoints.cors.allowed-methods=GET,POST,OPTIONS
+xsp.security.endpoints.cors.allowed-headers=*
+
+## Contract Management Service Client
+restclient.def.contractmanagement.endpoint=https://contract-management-service.xsp.comcast.net/api/customer/v1/contractmanagement/
+restclient.def.contractmanagement.connectTimeout=5000
+restclient.def.contractmanagement.readTimeout=30000
+
+xsp.security.authServer.username=cxt_pb_common_payment_2023
+xsp.security.authServer.secret={{cxt_pb_common_payment_oauth2_secret}}
+xsp.security.authServer.configs[0].endpointPatterns=contractmanagement
+xsp.security.authServer.configs[0].scopes=esp:contractManagement
+
+
+
+## Test Flight-Check
+xsp.test.flightcheck.appprops=propertyOrg
+xsp.test.flightcheck.overridevalue=propertyUpdated
+
+remoteservice.moco.url=http://localhost:12306
+server.port=6061
+
+moco.endpoint.contractmococheck.path=/contract/mococheck
+moco.endpoint.contractmococheck.url=${remoteservice.moco.url}/contract/mococheck
+
+
+# Whether to enable the bus or cloud config.  The bus cannot be
+# enabled outside of CF unless you can provide it with all the
+# configs/URLs to connect to the CF rabbitMQ queue.
+# Enable the cloud config and provide the cloud config URL and
+# profiles to run if you want the service to hit a remote config server.
+spring.cloud.bus.amqp.enabled=false
+spring.cloud.bus.enabled=false
+spring.cloud.config.enabled=false
+

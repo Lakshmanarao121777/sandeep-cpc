@@ -1,0 +1,114 @@
+buildscript {
+    ext {
+        springBootVersion = '2.2.11.RELEASE'
+        configServerVersion = '2.2.6.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        maven {
+            url "${artifactory_url}/plugins-release"
+            credentials {
+                username = "${artifactory_user}"
+                password = "${artifactory_password}"
+            }
+        }
+    }
+    dependencies {
+        classpath("com.comcast.xsp.gradle:xsp-gradle-sonarqube:[1.0.0,1.1.0)")
+    }
+}
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+    id 'maven'
+    id 'maven-publish'
+    id 'org.springframework.boot' version '2.2.11.RELEASE'
+    id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
+    id "com.jfrog.artifactory" version "4.17.2"
+}
+
+apply plugin: 'xsp.gradle.sonarqube'
+
+eclipse {
+    classpath {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+group = 'com.comcast.xsp'
+version = '1.5.1'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+jar {
+    baseName = rootProject.name
+    version = version
+    manifest {
+        attributes(
+                'Implementation-Title': rootProject.name,
+                'Implementation-Version': version,
+                'Implementation-Vendor': 'Comcast Corp.',
+                'Specification-Title': 'XSP Cloud Framework',
+                'Specification-Vendor': 'XSP Core Team'
+        )
+    }
+}
+
+springBoot {
+    mainClassName = "com.comcast.xsp.configserver.ConfigServerApplication"
+}
+
+bootJar {
+    baseName = rootProject.name
+    version = version
+    manifest {
+        attributes 'Start-Class': 'com.comcast.xsp.configserver.ConfigServerApplication'
+    }
+}
+
+bootRun {
+    systemProperties System.properties
+}
+
+dependencies {
+    compile("org.springframework.cloud:spring-cloud-config-server:${configServerVersion}")
+    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    compile("ch.qos.logback:logback-classic:1.2.3")
+    compile("ch.qos.logback:logback-core:1.2.3")
+
+    testCompile('junit:junit:4.13.1')
+    testCompile("org.assertj:assertj-core:3.18.1")
+    testCompile("org.mockito:mockito-core:2.28.2")
+    testCompile("org.powermock:powermock-core:2.0.9")
+    testCompile("org.powermock:powermock-api-mockito2:2.0.9")
+    testCompile("org.powermock:powermock-module-junit4:2.0.9")
+    testCompile("net.javacrumbs.json-unit:json-unit-assertj:2.22.0")
+    testCompile("com.github.stefanbirkner:system-rules:1.19.0")
+}
+
+artifactory {
+    contextUrl = "${artifactory_url}"
+    resolve {
+        repository {
+            repoKey = 'libs-release'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.10'
+}

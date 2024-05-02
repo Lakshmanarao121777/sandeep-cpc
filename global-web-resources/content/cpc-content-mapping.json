@@ -1,0 +1,55 @@
+{
+  "cpc_content_mapping": [
+    {
+      "channel": [
+        "ALL"
+      ],
+      "card-only-base-template": {
+        "business":{
+          "jump-first-name-label": "First or company name",
+          "jump-last-name-label": "Last name (if applicable)"
+        },
+        "residential":{
+          "jump-first-name-label": "First Name",
+          "jump-last-name-label": "Last Name"
+        }
+      },
+      "wallet-mgmt-no-autopay-template": {
+        "remove-payment-instrument-modal-title": "Remove Payment Method?",
+        "remove-payment-instrument-modal-body": "You won't be able to use this payment method without adding it again.",
+        "unable-remove-payment-instrument-modal-title":"Unable to Remove Payment Method" 
+      }, 
+
+      "auto-pay-base-template":{
+        "auto-pay-modal-title": "Auto Pay Terms and Conditions"
+      },
+      "terms-conditions-base-template":{
+        "terms-conditions-modal-title": "Stored Payment Methods Terms and Conditions"
+       },
+       "user-selection-base-title":{
+        "user-selection-title": "Select Xfinity ID to associate this payment with:"
+       }
+    },
+    {
+      "channel": [
+        "CBPC_RECURRING", 
+        "CBPC_ONETIME",
+        "CBPC_QUICKPAY" ],
+      "wallet-mgmt-no-autopay-template": {
+        "remove-payment-instrument-modal-title": "Remove Comcast Business Payment Method?",
+        "remove-payment-instrument-modal-body": "You won't be able to use this payment method without adding it again for Comcast Business.",
+        "unable-remove-payment-instrument-modal-title":"Unable to Remove Payment Method"
+      }
+    },
+    {
+      "channel": [ "CAFE" ],
+      "user-selection-base-title":{
+        "user-selection-title": "Select a username to associate this payment method with."
+      },
+      "terms-conditions-base-template":{
+        "terms-conditions-title": "Store this payment method for future use",
+        "stored-payment-tooltip-content": "This information will be stored within the e-wallet for customers who have created a user account(s) via My Account."
+       }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+/gradle.properties
+/xsp-cloud-config-server.iml
+/.idea
+/.gradle
+/config
+/build
+/build.log
+/console.log
+/*.iml

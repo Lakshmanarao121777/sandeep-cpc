@@ -1,0 +1,16 @@
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: hub.comcast.net/xia/concourse/jump-box
+    tag: latest
+
+inputs:
+  - name: concourse-repo
+  - name: git-branch
+outputs:
+  - name: hosted-method-of-payment
+
+run:
+  path: concourse-repo/scripts/build_hosted_method_of_payment_development.sh

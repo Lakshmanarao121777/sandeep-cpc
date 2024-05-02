@@ -1,0 +1,17 @@
+.card-style {
+  width: 90%;
+  height: 350px;
+  text-align: center;
+}
+
+.cc-pad-bottom-20 {
+  padding-bottom: 20px;
+}
+.component-height {
+  height: 580px;
+}
+.cc-img {
+  height: 100px;
+  width: 100px;
+  margin-left: 40%;
+}

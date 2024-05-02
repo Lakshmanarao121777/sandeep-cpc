@@ -1,0 +1,21 @@
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: hub.comcast.net/xia/concourse/jump-box
+    tag: latest
+
+params:
+  environment: ((environment))
+  output_folder: ((output_folder))
+
+inputs:
+  - name: git-branch
+  - name: concourse-repo
+outputs:
+  - name: ((output_folder))
+
+run:
+  path: concourse-repo/scripts/build_branch.sh
+  args: [ ((environment)) ((output_folder)) ]

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en" id="jump-main-container">
+  <head id="jump-web-component-head">
+    <meta charset="utf-8" />
+    <title>JUMP Hosted Payment App</title>
+    <meta name="description" content="JUMP Hosted Payment App" />
+    <meta name="author" content="[CHQ -- CXT Common Payment Dev Support]" />  
+    <script src="./assets/js/bootstrap.js"></script>
+    <link href="./assets/css/jump-hosted-payment-app.css" rel="stylesheet">
+    <script src="jump-hosted-payment-app-bundle.js"></script>
+    <script>
+      var smartcti = Object.assign({});
+    </script>
+  </head>
+
+  <body>  
+    <noscript></noscript>         
+    <div id="jump-hosted-container" class="p-2"></div>    
+    <template id="jumpModalTemplate">
+      <div class="modal fade" id="jumpModalDialog" tabindex="-1" aria-labelledby="jumpModalTitle" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header"  id="jumpModalHeader">
+              <h5 class="modal-title" id="jumpModalTitle"></h5>
+              <button type="button" class="btn-close jump-bs-close-icon" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="jumpModalBody">              
+            </div>
+            <div class="modal-footer" id="jumpModalFooter">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jumpModalDialog">
+      Launch demo modal
+    </button> -->
+  
+    <script>
+      let modal = document.getElementById('jumpModalTemplate');
+      if(modal) {
+        let modalContent = modal.content.cloneNode(true);
+        document.body.appendChild(modalContent);
+      }      
+    </script>
+  </body>    
+    
+</html>

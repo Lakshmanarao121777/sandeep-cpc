@@ -1,0 +1,18 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: node
+
+inputs:
+- name: version
+- name: concourse-repo
+
+outputs:
+ - name: publish
+
+run:
+  path: concourse-repo/scripts/publish.sh
+  args: [ ((artifactory.url)) ((artifactory.user)) ((artifactory.password)) ((sonar.user)) ((sonar.url)) ]

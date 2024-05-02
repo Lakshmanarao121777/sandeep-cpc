@@ -1,0 +1,47 @@
+<template id="MinCardOnlyBaseTemplate"> 
+  <div id="jump-min-card-only-container">
+  <link name="jump-css-url" rel="stylesheet">	
+  <form name="jump-min-cc-template-container">
+    <div class="row mb-3">
+      <div name="jump-error-message-top" class="row"></div>
+      <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">      
+        <div class="row">
+          <div class="col-12 position-relative">
+            <label for="jump-credit-card" class="form-label">Card number</label>
+            <span name="jump-credit-card-img" class="form-label position-absolute image-size-min-card"></span>
+            <input name="jump-credit-card" id="jump-credit-card" type="text" class="form-control d-block box-size card-image-left" aria-label="Credit card">
+          </div>
+      </div>
+      <div class="row"> 
+        <div class="py-2 col-6">
+          <label name="jump-expiration-name-label" for="jump-expiration" class="form-label">Expiration (MM/YY)</label>
+          <input name="jump-expiration" id="jump-expiration" maxlength='5' placeholder="MM/YY"  class="form-control" type="text">      
+        </div>
+        
+        <div class="py-2 col-6">
+        <label for="jump-cvv" class="form-label">Security code</label>
+            <span name="jump-modal-trigger" >
+              <span name="jump-modal-trigger" >
+                <a href="#" data-bs-toggle="modal" data-bs-target="#jumpModalDialog">
+                  <img name="jump-cvv-min-card-icon" data-bs-toggle="modal" data-bs-target="#jumpModalDialog" alt="cvv info">
+                </a>
+            </span>
+          </span>
+            <input
+              name="jump-cvv"
+              type="password"
+              class="form-control"
+              maxlength="4"
+              aria-label="Security code"
+              placeholder="CVV"
+            />
+        </div>
+      </div>    
+      </div>
+    </div>
+
+    <div name="jump-error-message-bottom" class="row"></div>
+    <jump-error-web-component id='jump-error-web-component-min-card'></jump-error-web-component>
+  </form>
+</div>
+</template>

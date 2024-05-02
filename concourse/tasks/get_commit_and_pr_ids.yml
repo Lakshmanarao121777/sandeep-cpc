@@ -1,0 +1,19 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: hub.comcast.net/aae/cloud-tools
+    tag: 0.12.5
+
+inputs:
+- name: code
+- name: git-pull-request
+- name: concourse-repo
+
+outputs:
+- name: commit-id
+- name: pull-request-id
+
+run:
+  path: concourse-repo/scripts/get_commit_and_pr_ids.sh

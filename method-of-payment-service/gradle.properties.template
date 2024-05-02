@@ -1,0 +1,36 @@
+# Please copy this file to a file named "gradle.properties"
+# then fill out the appropriate sections for your needs.
+#
+############################################################
+## ------------- ###########################################
+##  Artifactory  ###########################################
+## ------------- ###########################################
+############################################################
+#
+# You can use either your personal credentials or a service
+# account for Artifactory access.  Either way, the password
+# needs to be the encrypted version you will get from your
+# account profile -> Edit Profile -> Authentication Settings -> Generate An Identity Token
+
+#
+artifactory_user=[username]
+artifactory_password=[encrypted_password]
+artifactory_url=https://artifactory.comcast.com/artifactory
+#
+############################################################
+## ----------- #############################################
+##  Sonarqube  #############################################
+## ----------- #############################################
+############################################################
+#
+# There are two ways to set up access to the sonarqube
+# server.  Both should use service account credentials.
+# 1.) Add the service account username and password in the
+#     appropriate places.
+# 2.) Use the security token generated on the Sonar server
+#     for your account as the "sonar_user" value, and leave
+#     the "sonar_password" value blank.
+#
+sonar_user=[username_or_token]
+sonar_password=[password]
+sonar_host_url=https://sonarqube.comcast.com/

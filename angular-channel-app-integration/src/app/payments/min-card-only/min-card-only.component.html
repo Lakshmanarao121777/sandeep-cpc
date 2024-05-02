@@ -1,0 +1,60 @@
+<div>
+  <form id="MinCardOnly">
+    <div class="row mb-3">
+      <div class="col-sm-12">
+        <div class="row gy-5 cc-pad-bottom-20 style-pad-bottom-20">
+          <div class="col-12 style-border-bottom">
+            <strong>DEFAULT NAME & ADDRESS</strong>
+          </div>
+        </div>
+        <div class="row cc-pad-bottom-40 style-pad-bottom-40">
+          <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <label for="jump-first-name" class="form-label">
+              <strong>First name:</strong> {{customerInfo.firstName}}
+            </label>
+            <div name="jump-first-name" type="text"></div>
+          </div>
+          <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <label for="jump-last-name" class="form-label">
+              <strong>Last name:</strong> {{customerInfo.lastName}}
+            </label>
+            <div name="jump-last-name" type="text"></div>
+          </div>
+        </div>
+
+        <div class="row gy-3 cc-pad-bottom-20 style-pad-bottom-20">
+          <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <label class="form-label"
+              ><strong>Address:</strong> {{customerInfo.address}}</label
+            >
+            <div name="jump-address" type="text"></div>
+          </div>
+          <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <label class="form-label"
+              ><strong>Line2:</strong> {{customerInfo.addressLine2}}</label
+            >
+            <div name="jump-line2" type="text"></div>
+          </div>
+          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12">
+            <label class="form-label"
+              ><strong>City:</strong> {{customerInfo.city}}</label
+            >
+            <div name="jump-city" type="text"></div>
+          </div>
+          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12">
+            <label class="form-label"
+              ><strong>State:</strong> {{customerInfo.state}}</label
+            >
+            <div name="jump-state" type="text"></div>
+          </div>
+          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12">
+            <label class="form-label"
+              ><strong>Zip code:</strong> {{customerInfo.zip}}</label
+            >
+            <div name="jump-zip-code" type="text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

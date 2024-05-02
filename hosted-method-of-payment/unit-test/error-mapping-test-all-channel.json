@@ -1,0 +1,51 @@
+{
+  "cpcErrorResponseMapping": [
+    {
+      "channel": ["ALL"],
+      "system": {
+        "default": "CPC-TEST-1001",
+        "card_block": "CPC-TEST-1002"
+      },
+      "form": {
+        "payment_type": {
+          "no_value": "CPC-TEST-2001"
+        },
+        "bank": {
+          "first_name": {
+            "no_value": "CPC-TEST-2003"
+          },
+          "bank_account_number": {
+            "no_value": "CPC-TEST-2017"
+          }
+        },
+        "card": {
+          "first_name": {
+            "no_value": "CPC-TEST-2024"
+          },
+          "card_number": {
+            "no_value": "CPC-TEST-2038"
+          }
+        }
+      },
+      "service": {
+        "default": "CPC-TEST-3001",
+        "PAYMENT-1001": "CPC-TEST-3002"
+      },
+      "communication": {
+        "default": "CPC-TEST-4001"
+      }
+    }
+  ],
+  "cpc_response_messages": {
+    "CPC-TEST-1001": "System default test error message.",
+    "CPC-TEST-1002": "System card block test error message.",
+    "CPC-TEST-2001": "Form payment type no value test error message.",
+    "CPC-TEST-2003": "Form bank first name no value test error message.",
+    "CPC-TEST-2017": "Form bank bank account number no value test error message.",
+    "CPC-TEST-2024": "Form card first name no value test error message.",
+    "CPC-TEST-2038": "Form card card number no value test error message.",
+    "CPC-TEST-3001": "Service exception default test error message.",
+    "CPC-TEST-3002": "Service exception payment 1001 test error message.",
+    "CPC-TEST-4001": "Communication default test message."
+  }
+}
